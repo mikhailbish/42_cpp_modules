@@ -1,50 +1,42 @@
-class Contact {
-	private:
-		std::string _first_name;   
-		std::string _last_name;
-		std::string _nickname;
-		std::string _phone;
-		std::string _secret;
-	public:
-		std::string getFirstName()
-		{
-			return (_first_name);
-		}
-		std::string getLastName()
-		{
-			return (_last_name);
-		}
-		std::string getNickname()
-		{
-			return (_nickname);
-		}
-		std::string getPhone()
-		{
-			return (_phone);
-		}
-		std::string getSecret()
-		{
-			return (_secret);
-		}
-		void getFirstName(std::string param)
-		{
-			_first_name = param;
-		}
-		void getLastName(std::string param)
-		{
-			_last_name = param;
-		}
-		void getNickname(std::string param)
-		{
-			_nickname = param;
-		}
-		void getPhone(std::string param)
-		{
-			_phone = param;
-		}
-		void getSecret(std::string param)
-		{
-			_secret = param;
-		}
-		
-};
+#include "Contact.hpp"
+
+std::string Contact::getFirstName()
+{
+	return (_first_name);
+}
+std::string Contact::getLastName()
+{
+	return (_last_name);
+}
+std::string Contact::getNickname()
+{
+	return (_nickname);
+}
+std::string Contact::getPhone()
+{
+	return (_phone);
+}
+std::string Contact::getSecret()
+{
+	return (_secret);
+}
+void Contact::gettFirstName(std::string param)
+{
+	_first_name = param;
+}
+void Contact::setLastName(std::string param)
+{
+	_last_name = param;
+}
+void Contact::setNickname(std::string param)
+{
+	_nickname = param;
+}
+void Contact::setPhone(std::string param)
+{
+	_phone = param;
+}
+void Contact::setSecret(std::string param)
+{
+	_secret = param;
+}
