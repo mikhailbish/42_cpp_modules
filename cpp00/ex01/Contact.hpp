@@ -1,6 +1,6 @@
 #ifndef CONTACT_HPP
 # define CONTACT_HPP
-
+#include <string>
 class Contact {
 
 	private:
@@ -10,16 +10,16 @@ class Contact {
 		std::string _phone;
 		std::string _secret;
 	public:
-		std::string getFirstName()
-		std::string getLastName()
-		std::string getNickname()
-		std::string getPhone()
-		std::string getSecret()
-		void setFirstName(std::string param)
-		void setLastName(std::string param)
-		void setNickname(std::string param)
-		void setPhone(std::string param)
-		void setSecret(std::string param)
-}
+		std::string getFirstName();
+		std::string getLastName();
+		std::string getNickname();
+		std::string getPhone();
+		std::string getSecret();
+		void setFirstName(std::string param);
+		void setLastName(std::string param);
+		void setNickname(std::string param);
+		void setPhone(std::string param);
+		void setSecret(std::string param);
+};
 
 #endif

@@ -20,7 +20,7 @@ std::string Contact::getSecret()
 {
 	return (_secret);
 }
-void Contact::gettFirstName(std::string param)
+void Contact::setFirstName(std::string param)
 {
 	_first_name = param;
 }
