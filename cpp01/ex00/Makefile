@@ -1,12 +1,8 @@
-NAME = Phonebook
+NAME = Zombies
 CC = c++
 RM = rm -f
-#CFLAGS = -Wall -Wextra -Werror -std=c++98
-CFLAGS = -Wall -Wextra -Werror -std=c++11
-SRCS = PhoneBook.cpp \
-	Contact.cpp \
-	main.cpp \
-
+CFLAGS = -Wall -Wextra -Werror -std=c++98
+SRCS = Zombie.cpp main.cpp newZombie.cpp randomChump.cpp
 OBJS = $(SRCS:.cpp=.o)
 
 %.o: %.cpp
@@ -19,7 +15,6 @@ $(NAME): $(OBJS)
 
 clean:
 	$(RM) $(OBJS)
-
 
 fclean: clean
 	$(RM) $(NAME)

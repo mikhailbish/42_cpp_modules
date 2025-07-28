@@ -70,6 +70,7 @@ void print_table(PhoneBook pb)
 		print_row(index, *contact);
 		index++;
 	}
+	std::cout << std::endl;
 
 }
 
@@ -102,7 +103,7 @@ void read_some()
 			
 			//std::cout << "print contact table" << std::endl;
 			print_table(pb);
-			std::cout << "enter contact index";
+			std::cout << "enter contact index" <<  std::endl;
 //std::stoi
 			std::cin >> entry;
 			try
