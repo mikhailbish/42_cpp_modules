@@ -9,12 +9,10 @@ Zombie* zombieHorde( int N, std::string name )
 	}
 	catch (...)
 	{
-		return (0);
+		return (nullptr);
 	}
-	delete[] horde;
-	return 0;
-	if (!horde)
-		return (0);
+	if (horde == nullptr)
+		return (nullptr);
 	for (int i = 0; i < N; i++)
 	{
 		try {
@@ -23,7 +21,7 @@ Zombie* zombieHorde( int N, std::string name )
 		catch (...)
 		{
 			delete[] horde;
-			return (0);
+			return (nullptr);
 		}
 	}
 	return (horde);

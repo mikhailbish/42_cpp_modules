@@ -1,8 +1,8 @@
-NAME = ZombieHorde
+NAME = ptrvsref
 CC = c++
 RM = rm -f
 CFLAGS = -Wall -Wextra -Werror -std=c++11
-SRCS = main.cpp Zombie.cpp zombieHorde.cpp
+SRCS = main.cpp
 OBJS = $(SRCS:.cpp=.o)
 
 %.o: %.cpp
