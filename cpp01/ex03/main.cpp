@@ -9,19 +9,23 @@ void diffScope(HumanB *bhuman)
 	bhuman->setWeapon(&some);
 	some.setType("Super weapon");
 }
+*/
 
+/*
 int main()
 {
 	std::string nameB = "other name";
 	HumanB bhuman(nameB);
 	{
 		Weapon some("test");
-		bhuman.setWeapon(&some);
+		bhuman.setWeapon(some);
 		bhuman.attack();
 		some.setType("Super weapon");
 		bhuman.attack();
 	}
-	bhuman.attack();
+	{
+		bhuman.attack();
+	}
 	return (0);
 }
 */
@@ -61,7 +65,6 @@ int main()
 	return (0);
 }
 */
-
 int main()
 {
 	{
@@ -81,4 +84,3 @@ int main()
 	}
 	return 0;
 }
-

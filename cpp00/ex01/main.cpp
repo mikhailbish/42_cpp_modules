@@ -2,6 +2,23 @@
 #include <string>
 #include <iostream>
 #include <iomanip>
+/*
+std::string &parsefield(string &prompt, )
+{
+	string field;
+
+	std::getline(std::cin, field);
+	if (field.length() == 0)
+		return (nullptr)
+	return (field);
+}
+*/
+void prompt(char *arg, std::string &text)
+{
+	std::cout << arg << ": ";
+	std::getline(std::cin, text);
+}
+
 
 void collect_contact(PhoneBook *pb)
 {
@@ -10,19 +27,38 @@ void collect_contact(PhoneBook *pb)
 	std::string nickname;
 	std::string phone;
 	std::string secret;
-	
-	std::cout << "First Name: "; //<< std::endl;
-	std::cin >> first_name;
-	std::cout << "Last Name: "; //<< std::endl;
-	std::cin >> last_name;
-	std::cout << "Nickname: "; //<< std::endl;
-	std::cin >> nickname;
-	std::cout << "Phone: "; //<< std::endl;
-	std::cin >> phone;
-	std::cout << "Secret: "; //<< std::endl;
-	std::cin >> secret;
-	pb->setContact(first_name, last_name, nickname, phone, secret);
-	
+	Contact *contactWip = pb->getNextContact();
+//	int status = 1;
+	while (1)
+	{
+		prompt((char *)"First Name", first_name);
+		try {
+			contactWip->setFirstName(first_name);
+			break ;
+		}
+		catch (std::invalid_argument &exception)
+		{
+			std::cout <<"inv arg catch" << std::endl;
+			throw ;
+		}
+		catch (...)
+		{
+		}
+	}
+//	status = 1;
+
+
+	prompt((char *)"Last Name", last_name);
+	contactWip->setLastName(last_name);
+
+	prompt((char *)"Nickname", nickname);
+	contactWip->setNickname(nickname);
+
+	prompt((char *)"Phone", phone);
+	contactWip->setPhone(phone);
+
+	prompt((char *)"Secret", secret);
+	contactWip->setSecret(secret);
 }
 
 void print_column_content(std::string content)
@@ -55,10 +91,7 @@ void	print_row(int index, Contact contact)
 	print_column_content(contact.getNickname());
 	std::cout << "|";
 	print_column_content(contact.getPhone());
-//	std::cout << "|";
-/*	print_column_content(contact.getSecret());
-	std::cout << "|" << std::endl;
-*/
+	std::cout << std::endl;
 }
 
 void print_table(PhoneBook pb)
@@ -70,76 +103,68 @@ void print_table(PhoneBook pb)
 		print_row(index, *contact);
 		index++;
 	}
-	std::cout << std::endl;
-
 }
 
-void read_some()
+void read_some(char *arg)
 {
 	PhoneBook pb;
+	Contact *contactFromBook;
 	std::string text;
-	int index;
 	std::string entry;
-	std::cin >> text;
-//	if (std::cin.eof())
-//		return ;
+	int index;
+	prompt(arg, text);
 	while (!std::cin.eof())
 	{
-//		if (std::cin.eof())
-//			return ;
-//		std::cout << text.length() << std::endl;
 		if (text == "ADD")
 		{
 			collect_contact(&pb);
 			std::cout << "adding contact" << std::endl;
 		}
 		if (text == "EXIT")
-//		{
 			return ;
-//			std::cout << "exiting" << std::endl;
-//		}
 		if (text == "SEARCH")
 		{
-			
-			//std::cout << "print contact table" << std::endl;
 			print_table(pb);
-			std::cout << "enter contact index" <<  std::endl;
-//std::stoi
-			std::cin >> entry;
+			std::cout << "enter contact index: ";
+			std::getline(std::cin, entry);
 			try
 			{
 				index = std::stoi(entry);
 			}
 			catch (...)
 			{
-				printf("problematic entry\n");
+				std::cout << "Wrong contact index provided!" << std::endl;
+				prompt(arg, text);
 				continue;
 			}
-//			if (!std::cin)
-//				break;
-			if (!pb.getContact(index))
+			contactFromBook = pb.getContact(index);
+			if (!contactFromBook)
 			{
-				std::cout << "wrong contactt index provided" << std::endl;
-				
-				//break ;
-				std::cin >> text;
+				std::cout << "Wrong contact index provided!" << std::endl;
+				prompt(arg, text);
 				continue ;
 			}
 			else
 			{
-				std::cout << pb.getContact(index)->getFirstName() << std::endl;
-				std::cout << pb.getContact(index)->getLastName() << std::endl;
-				std::cout << pb.getContact(index)->getNickname() << std::endl;
-				std::cout << pb.getContact(index)->getPhone() << std::endl;
-				std::cout << pb.getContact(index)->getSecret() << std::endl;
+				std::cout << contactFromBook->getFirstName() << std::endl;
+				std::cout << contactFromBook->getLastName() << std::endl;
+				std::cout << contactFromBook->getNickname() << std::endl;
+				std::cout << contactFromBook->getPhone() << std::endl;
+				std::cout << contactFromBook->getSecret() << std::endl;
 			}
 		}
-		std::cin >> text;
+		prompt(arg, text);
 	}
 }
 
-int main()
+int main(int argc, char **argv)
 {
-	read_some();
+	(void)argc;
+	try {
+		read_some(argv[0]);
+	} catch (...)
+	{
+
+	}
 	return (0);
 }

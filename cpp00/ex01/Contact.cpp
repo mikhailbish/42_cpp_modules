@@ -20,23 +20,42 @@ std::string Contact::getSecret()
 {
 	return (_secret);
 }
-void Contact::setFirstName(std::string param)
+
+void Contact::_validateParam(std::string &param)
 {
+	if (param.length() == 0)
+	{
+		std::cout << "ERRRORRRR" << std::endl;
+		throw std::invalid_argument("Empty param");
+	}
+}
+
+void Contact::setFirstName(std::string &param)
+{
+	_validateParam(param);
 	_first_name = param;
 }
-void Contact::setLastName(std::string param)
+
+void Contact::setLastName(std::string &param)
 {
+	_validateParam(param);
 	_last_name = param;
 }
-void Contact::setNickname(std::string param)
+
+void Contact::setNickname(std::string &param)
 {
+	_validateParam(param);
 	_nickname = param;
 }
-void Contact::setPhone(std::string param)
+
+void Contact::setPhone(std::string &param)
 {
+	_validateParam(param);
 	_phone = param;
 }
-void Contact::setSecret(std::string param)
+
+void Contact::setSecret(std::string &param)
 {
+	_validateParam(param);
 	_secret = param;
 }
