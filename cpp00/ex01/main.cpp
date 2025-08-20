@@ -1,22 +1,33 @@
 #include "PhoneBook.hpp"
 #include <string>
 #include <iostream>
-#include <iomanip>
-/*
-std::string &parsefield(string &prompt, )
-{
-	string field;
+#include <functional>
 
-	std::getline(std::cin, field);
-	if (field.length() == 0)
-		return (nullptr)
-	return (field);
-}
-*/
 void prompt(char *arg, std::string &text)
 {
 	std::cout << arg << ": ";
 	std::getline(std::cin, text);
+}
+
+void getContactDetail(char *promptText, std::string &storage, std::function<void(std::string &)> setter)
+{
+	while (1)
+	{
+		prompt(promptText, storage);
+		try {
+			setter(storage);
+			break ;
+		}
+		catch (std::invalid_argument &exception)
+		{
+			std::cout <<"inv arg catch" << std::endl;
+		}
+		catch (...)
+		{
+			throw ;
+		}
+	}
+
 }
 
 
@@ -28,37 +39,26 @@ void collect_contact(PhoneBook *pb)
 	std::string phone;
 	std::string secret;
 	Contact *contactWip = pb->getNextContact();
-//	int status = 1;
-	while (1)
 	{
-		prompt((char *)"First Name", first_name);
-		try {
-			contactWip->setFirstName(first_name);
-			break ;
-		}
-		catch (std::invalid_argument &exception)
-		{
-			std::cout <<"inv arg catch" << std::endl;
-			throw ;
-		}
-		catch (...)
-		{
-		}
+		auto func = bind(&Contact::setFirstName, contactWip, std::placeholders::_1);
+		getContactDetail((char *)"First Name", first_name, func);
 	}
-//	status = 1;
-
-
-	prompt((char *)"Last Name", last_name);
-	contactWip->setLastName(last_name);
-
-	prompt((char *)"Nickname", nickname);
-	contactWip->setNickname(nickname);
-
-	prompt((char *)"Phone", phone);
-	contactWip->setPhone(phone);
-
-	prompt((char *)"Secret", secret);
-	contactWip->setSecret(secret);
+	{
+		auto func = bind(&Contact::setLastName, contactWip, std::placeholders::_1);
+		getContactDetail((char *)"Last Name", last_name, func);
+	}
+	{
+		auto func = bind(&Contact::setNickname, contactWip, std::placeholders::_1);
+		getContactDetail((char *)"Nickame", nickname, func);
+	}
+	{
+		auto func = bind(&Contact::setPhone, contactWip, std::placeholders::_1);
+		getContactDetail((char *)"Phone", phone, func);
+	}
+	{
+		auto func = bind(&Contact::setSecret, contactWip, std::placeholders::_1);
+		getContactDetail((char *)"Secret", secret, func);
+	}
 }
 
 void print_column_content(std::string content)

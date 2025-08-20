@@ -25,7 +25,7 @@ void Contact::_validateParam(std::string &param)
 {
 	if (param.length() == 0)
 	{
-		std::cout << "ERRRORRRR" << std::endl;
+		std::cout << "ERROR" << std::endl;
 		throw std::invalid_argument("Empty param");
 	}
 }
