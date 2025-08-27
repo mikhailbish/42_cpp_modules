@@ -3,19 +3,30 @@
 #include <iostream>
 #include <functional>
 
-void prompt(char *arg, std::string &text)
+int prompt(char *arg, std::string &text)
 {
 	std::cout << arg << ": ";
-	std::getline(std::cin, text);
+	if (!std::getline(std::cin, text))
+	{
+		if (std::cin.eof())
+		{
+			std::cout << "ERRRRRRROR" << std::endl;
+			return 0;
+//			throw ;
+		}
+	}
+	else if (!text.length())
+		throw std::invalid_argument("Empty param");
+	return (1);
 }
 
-void getContactDetail(char *promptText, std::string &storage, std::function<void(std::string &)> setter)
+int getContactDetail(char *promptText, std::string &storage)
 {
 	while (1)
 	{
-		prompt(promptText, storage);
 		try {
-			setter(storage);
+			if (!prompt(promptText, storage))
+				return 0;
 			break ;
 		}
 		catch (std::invalid_argument &exception)
@@ -27,11 +38,10 @@ void getContactDetail(char *promptText, std::string &storage, std::function<void
 			throw ;
 		}
 	}
-
+	return (1);
 }
 
-
-void collect_contact(PhoneBook *pb)
+int collect_contact(PhoneBook *pb)
 {
 	std::string first_name;
 	std::string last_name;
@@ -39,26 +49,27 @@ void collect_contact(PhoneBook *pb)
 	std::string phone;
 	std::string secret;
 	Contact *contactWip = pb->getNextContact();
-	{
-		auto func = bind(&Contact::setFirstName, contactWip, std::placeholders::_1);
-		getContactDetail((char *)"First Name", first_name, func);
-	}
-	{
-		auto func = bind(&Contact::setLastName, contactWip, std::placeholders::_1);
-		getContactDetail((char *)"Last Name", last_name, func);
-	}
-	{
-		auto func = bind(&Contact::setNickname, contactWip, std::placeholders::_1);
-		getContactDetail((char *)"Nickame", nickname, func);
-	}
-	{
-		auto func = bind(&Contact::setPhone, contactWip, std::placeholders::_1);
-		getContactDetail((char *)"Phone", phone, func);
-	}
-	{
-		auto func = bind(&Contact::setSecret, contactWip, std::placeholders::_1);
-		getContactDetail((char *)"Secret", secret, func);
-	}
+	
+	if (!getContactDetail((char *)"First Name", first_name))
+		return (0);
+	contactWip->setFirstName(first_name);
+
+	if (!getContactDetail((char *)"Last Name", last_name))
+		return (0);
+	contactWip->setLastName(last_name);
+
+	if (!getContactDetail((char *)"Nickame", nickname))
+		return (0);
+	contactWip->setNickname(nickname);
+
+	if (!getContactDetail((char *)"Phone", phone))
+		return (0);
+	contactWip->setPhone(phone);
+
+	if (!getContactDetail((char *)"Secret", secret))
+		return (0);
+	contactWip->setSecret(secret);
+	return (1);
 }
 
 void print_column_content(std::string content)
@@ -112,12 +123,15 @@ void read_some(char *arg)
 	std::string text;
 	std::string entry;
 	int index;
-	prompt(arg, text);
-	while (!std::cin.eof())
+	if (!prompt(arg, text))
+		return;
+	//while (!std::cin.eof())
+	while (1)
 	{
 		if (text == "ADD")
 		{
-			collect_contact(&pb);
+			if (!collect_contact(&pb))
+				return ;
 			std::cout << "adding contact" << std::endl;
 		}
 		if (text == "EXIT")
@@ -125,8 +139,10 @@ void read_some(char *arg)
 		if (text == "SEARCH")
 		{
 			print_table(pb);
-			std::cout << "enter contact index: ";
-			std::getline(std::cin, entry);
+//			std::cout << "enter contact index: ";
+//			std::getline(std::cin, entry);
+			if (!prompt((char *)"Enter contact index:", entry))
+				return ;
 			try
 			{
 				index = std::stoi(entry);
@@ -134,14 +150,16 @@ void read_some(char *arg)
 			catch (...)
 			{
 				std::cout << "Wrong contact index provided!" << std::endl;
-				prompt(arg, text);
+				if (!prompt(arg, text))
+					return ;
 				continue;
 			}
 			contactFromBook = pb.getContact(index);
 			if (!contactFromBook)
 			{
 				std::cout << "Wrong contact index provided!" << std::endl;
-				prompt(arg, text);
+				if (!prompt(arg, text))
+					return ;
 				continue ;
 			}
 			else
@@ -153,7 +171,8 @@ void read_some(char *arg)
 				std::cout << contactFromBook->getSecret() << std::endl;
 			}
 		}
-		prompt(arg, text);
+		if (!prompt(arg, text))
+			return ;
 	}
 }
 
@@ -164,7 +183,7 @@ int main(int argc, char **argv)
 		read_some(argv[0]);
 	} catch (...)
 	{
-
+		std::cout << "caught some" << std::endl;
 	}
 	return (0);
 }
