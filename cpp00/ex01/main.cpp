@@ -11,12 +11,15 @@ int prompt(char *arg, std::string &text)
 		if (std::cin.eof())
 		{
 			std::cout << "ERRRRRRROR" << std::endl;
+			throw std::runtime_error("asd");
 			return 0;
-//			throw ;
 		}
 	}
 	else if (!text.length())
+	{
+		std::cout << "text no length" << std::endl;
 		throw std::invalid_argument("Empty param");
+	}
 	return (1);
 }
 
@@ -35,7 +38,7 @@ int getContactDetail(char *promptText, std::string &storage)
 		}
 		catch (...)
 		{
-			throw ;
+			throw std::runtime_error("assd");
 		}
 	}
 	return (1);
@@ -123,11 +126,23 @@ void read_some(char *arg)
 	std::string text;
 	std::string entry;
 	int index;
-	if (!prompt(arg, text))
-		return;
+//	if (!prompt(arg, text))
+//		return;
 	//while (!std::cin.eof())
 	while (1)
 	{
+		try {
+			if (!prompt(arg, text))
+			{
+				std::cout << "return after prompt" << std::endl;
+				return ;
+			}
+		}
+		catch (std::invalid_argument &err)
+		{
+			std::cout << "caugth and continue" << std::endl;
+			continue ;
+		}
 		if (text == "ADD")
 		{
 			if (!collect_contact(&pb))
@@ -141,25 +156,29 @@ void read_some(char *arg)
 			print_table(pb);
 //			std::cout << "enter contact index: ";
 //			std::getline(std::cin, entry);
-			if (!prompt((char *)"Enter contact index:", entry))
-				return ;
 			try
 			{
+				if (!prompt((char *)"Enter contact index:", entry))
+					return ;
 				index = std::stoi(entry);
+			}
+			catch (std::invalid_argument &err)
+			{
+				continue ;
 			}
 			catch (...)
 			{
 				std::cout << "Wrong contact index provided!" << std::endl;
-				if (!prompt(arg, text))
-					return ;
-				continue;
+//				if (!prompt(arg, text))
+//					return ;
+				continue ;
 			}
 			contactFromBook = pb.getContact(index);
 			if (!contactFromBook)
 			{
 				std::cout << "Wrong contact index provided!" << std::endl;
-				if (!prompt(arg, text))
-					return ;
+//				if (!prompt(arg, text))
+//					return ;
 				continue ;
 			}
 			else
@@ -171,8 +190,6 @@ void read_some(char *arg)
 				std::cout << contactFromBook->getSecret() << std::endl;
 			}
 		}
-		if (!prompt(arg, text))
-			return ;
 	}
 }
 

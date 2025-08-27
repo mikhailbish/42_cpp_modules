@@ -11,7 +11,6 @@ class Contact {
 		std::string _nickname;
 		std::string _phone;
 		std::string _secret;
-		void	_validateParam(std::string &param);
 	public:
 		std::string getFirstName();
 		std::string getLastName();
