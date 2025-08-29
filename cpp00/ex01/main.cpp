@@ -3,23 +3,33 @@
 #include <iostream>
 #include <functional>
 
-int prompt(char *arg, std::string &text)
+int prompt(char *arg, std::string &text, int flag)
 {
 	std::cout << arg << ": ";
 	if (!std::getline(std::cin, text))
 	{
 		if (std::cin.eof())
 		{
-			std::cout << "ERRRRRRROR" << std::endl;
 			throw std::runtime_error("asd");
 			return 0;
 		}
 	}
 	else if (!text.length())
 	{
-		std::cout << "text no length" << std::endl;
-		throw std::invalid_argument("Empty param");
+		throw std::invalid_argument("Empty string");
 	}
+	else if (flag == 1)
+	{
+		if (!(text == "ADD" || text == "SEARCH" || text == "EXIT"))
+			throw std::invalid_argument("Wrong entry");
+	}
+//TODO: consider num validation here
+/*	else if (flag == 2)
+	{
+		index = std::stoi(entry);
+		if (flag)
+	}
+*/
 	return (1);
 }
 
@@ -28,13 +38,13 @@ int getContactDetail(char *promptText, std::string &storage)
 	while (1)
 	{
 		try {
-			if (!prompt(promptText, storage))
+			if (!prompt(promptText, storage, 0))
 				return 0;
 			break ;
 		}
 		catch (std::invalid_argument &exception)
 		{
-			std::cout <<"inv arg catch" << std::endl;
+			std::cout << "Invalid entry: " << exception.what() <<  std::endl;
 		}
 		catch (...)
 		{
@@ -126,13 +136,10 @@ void read_some(char *arg)
 	std::string text;
 	std::string entry;
 	int index;
-//	if (!prompt(arg, text))
-//		return;
-	//while (!std::cin.eof())
 	while (1)
 	{
 		try {
-			if (!prompt(arg, text))
+			if (!prompt(arg, text, true))
 			{
 				std::cout << "return after prompt" << std::endl;
 				return ;
@@ -140,7 +147,7 @@ void read_some(char *arg)
 		}
 		catch (std::invalid_argument &err)
 		{
-			std::cout << "caugth and continue" << std::endl;
+			std::cout << "Usage:\nADD to start adding a new contact\nSEARCH to checkout entered contacts\nEXIT to close the program" << std::endl;
 			continue ;
 		}
 		if (text == "ADD")
@@ -154,12 +161,12 @@ void read_some(char *arg)
 		if (text == "SEARCH")
 		{
 			print_table(pb);
-//			std::cout << "enter contact index: ";
-//			std::getline(std::cin, entry);
 			try
 			{
-				if (!prompt((char *)"Enter contact index:", entry))
+				if (!prompt((char *)"Enter contact index", entry, false))
 					return ;
+				if (entry.length() != 1)
+					throw 1;
 				index = std::stoi(entry);
 			}
 			catch (std::invalid_argument &err)
@@ -169,16 +176,12 @@ void read_some(char *arg)
 			catch (...)
 			{
 				std::cout << "Wrong contact index provided!" << std::endl;
-//				if (!prompt(arg, text))
-//					return ;
 				continue ;
 			}
 			contactFromBook = pb.getContact(index);
 			if (!contactFromBook)
 			{
 				std::cout << "Wrong contact index provided!" << std::endl;
-//				if (!prompt(arg, text))
-//					return ;
 				continue ;
 			}
 			else
