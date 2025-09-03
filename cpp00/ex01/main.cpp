@@ -24,12 +24,6 @@ int prompt(char *arg, std::string &text, int flag)
 			throw std::invalid_argument("Wrong entry");
 	}
 //TODO: consider num validation here
-/*	else if (flag == 2)
-	{
-		index = std::stoi(entry);
-		if (flag)
-	}
-*/
 	return (1);
 }
 
@@ -203,7 +197,6 @@ int main(int argc, char **argv)
 		read_some(argv[0]);
 	} catch (...)
 	{
-		std::cout << "caught some" << std::endl;
 	}
 	return (0);
 }
