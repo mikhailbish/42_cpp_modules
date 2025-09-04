@@ -1,7 +1,6 @@
 #include "PhoneBook.hpp"
 #include <string>
 #include <iostream>
-#include <functional>
 
 int prompt(char *arg, std::string &text, int flag)
 {
@@ -16,14 +15,24 @@ int prompt(char *arg, std::string &text, int flag)
 	}
 	else if (!text.length())
 	{
-		throw std::invalid_argument("Empty string");
+		if (flag != 2)
+			throw std::invalid_argument("Empty string");
+		else
+			throw 1;
 	}
 	else if (flag == 1)
 	{
 		if (!(text == "ADD" || text == "SEARCH" || text == "EXIT"))
 			throw std::invalid_argument("Wrong entry");
 	}
-//TODO: consider num validation here
+	else if (flag == 2)
+	{
+		if (text.length() != 1)
+		{
+			std::cout << "length not 1, throwing" << std::endl;
+			throw 1;
+		}
+	}
 	return (1);
 }
 
@@ -133,7 +142,7 @@ void read_some(char *arg)
 	while (1)
 	{
 		try {
-			if (!prompt(arg, text, true))
+			if (!prompt(arg, text, 1))
 			{
 				std::cout << "return after prompt" << std::endl;
 				return ;
@@ -157,10 +166,10 @@ void read_some(char *arg)
 			print_table(pb);
 			try
 			{
-				if (!prompt((char *)"Enter contact index", entry, false))
+				if (!prompt((char *)"Enter contact index", entry, 2))
 					return ;
-				if (entry.length() != 1)
-					throw 1;
+//				if (entry.length() != 1)
+//					throw 1;
 				index = std::stoi(entry);
 			}
 			catch (std::invalid_argument &err)
@@ -193,6 +202,7 @@ void read_some(char *arg)
 int main(int argc, char **argv)
 {
 	(void)argc;
+
 	try {
 		read_some(argv[0]);
 	} catch (...)
