@@ -168,8 +168,6 @@ void read_some(char *arg)
 			{
 				if (!prompt((char *)"Enter contact index", entry, 2))
 					return ;
-//				if (entry.length() != 1)
-//					throw 1;
 				index = std::stoi(entry);
 			}
 			catch (std::invalid_argument &err)
