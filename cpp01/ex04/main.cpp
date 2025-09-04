@@ -4,38 +4,36 @@
 int main(int argc, char *str[])
 {
 	if (argc != 4)
-	//TODO: print error message
+	{
+		std::cout << "Usage: " << str[0] << " <file to read> <string to replace> <string to replace with>" << std::endl;
 		return (1);
+	}
 	size_t stringPosition = 0;
-	
-	std::string fileName = str[1];
-	std::string textCollector = "";
-	std::string line;
-	std::string textToWrite;
-	std::string strToFind = str[2];
-	std::string strToAdd = str[3];
-	
-	if (strToFind.length() == 0)
-	{
-		std::cout << "We do not look for empty strings" << std::endl;
-		return (1);
-	}
-	
-	std::ifstream fileToRead(fileName);
-	if (fileToRead.fail())
-	{
-		std::cout << "Cannot open file to read" << std::endl;
-		return (1);
-	}
-	std::ofstream fileToWrite(fileName + ".replace");
-	if (fileToWrite.fail())
-	{
-		std::cout << "Cannot open file to write" << std::endl;
-		//fileToRead.close();
-		return (1);
-	}	
 	try 
 	{
+		std::string fileName = str[1];
+		std::string textCollector = "";
+		std::string line;
+		std::string textToWrite;
+		std::string strToFind = str[2];
+		std::string strToAdd = str[3];
+		if (strToFind.length() == 0)
+		{
+			std::cout << "We do not look for empty strings" << std::endl;
+			return (1);
+		}
+		std::ifstream fileToRead(fileName);
+		if (fileToRead.fail())
+		{
+			std::cout << "Cannot open file to read" << std::endl;
+			return (1);
+		}
+		std::ofstream fileToWrite(fileName + ".replace");
+		if (fileToWrite.fail())
+		{
+			std::cout << "Cannot open file to write" << std::endl;
+			return (1);
+		}	
 		while (getline(fileToRead, line))
 		{
 			textCollector += line;
@@ -45,7 +43,6 @@ int main(int argc, char *str[])
 		while (1)
 		{
 			stringPosition = textCollector.find(strToFind, 0);
-			//std::cout << "str position" << stringPosition << std::endl;
 			if (stringPosition == std::string::npos)
 				break ; 
 			textToWrite += textCollector.substr(0, stringPosition);
@@ -57,11 +54,8 @@ int main(int argc, char *str[])
 	}
 	catch (...)
 	{
-		//fileToRead.close();
-		//fileToWrite.close();
+		std::cout << "Oups, something went wrong" << std::endl;
 		return (1);
-	}	
-	//fileToRead.close();
-	//fileToWrite.close();
+	}
 	return (0);
 }
