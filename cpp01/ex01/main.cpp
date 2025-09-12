@@ -1,7 +1,7 @@
 #include "Zombie.hpp"
+#define ZOMBIE_NUM 100
 
 Zombie* zombieHorde( int N, std::string name );
-#define ZOMBIE_NUM 100
 int main()
 {
 	Zombie *wow = zombieHorde(ZOMBIE_NUM, "Vasya");

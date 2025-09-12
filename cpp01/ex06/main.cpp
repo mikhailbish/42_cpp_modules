@@ -14,6 +14,7 @@ int main(int argc, char *argv[])
 	catch (...)
 	{
 		std::cout << "Something went wrong, an error was caught!" << std::endl;
+		return (1);
 	}
 	return (0);
 }
