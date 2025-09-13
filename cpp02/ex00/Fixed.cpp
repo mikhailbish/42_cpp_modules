@@ -14,17 +14,20 @@ Fixed::Fixed(Fixed &other) {
 Fixed& Fixed::operator=(const Fixed& f)
 {
 	std::cout << "fp copy assignment operator overloaded" << std::endl;
-	this->_value = f._value;
+	if (this != &f)
+		this->_value = f._value;
 	return *this;
 }
 
 int Fixed::getRawBits(void) const
 {
+	std::cout << "get raw bits is called" << std::endl;
 	return (this->_value);
 }
 
 void Fixed::setRawBits(int const raw)
 {
+	std::cout << "set raw bits is called" << std::endl;
 	this->_value = raw;
 }
 
