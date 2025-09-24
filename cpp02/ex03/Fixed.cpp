@@ -2,17 +2,23 @@
 
 Fixed::Fixed(void) {
 	_value = 0;
+	# ifdef DEBUG
 	std::cout << "fp constructor" << std::endl;
+	# endif
 }
 
 Fixed::Fixed(const Fixed &other) {
+	# ifdef DEBUG
 	std::cout << "fp copy constructor" << std::endl;
+	# endif
 	this->_value = other._value;
 }
 
 Fixed& Fixed::operator=(const Fixed& f)
 {
+	# ifdef DEBUG
 	std::cout << "fp copy assignment operator overloaded" << std::endl;
+	# endif
 	if (this != &f)
 		this->_value = f._value;
 	return *this;
@@ -20,19 +26,26 @@ Fixed& Fixed::operator=(const Fixed& f)
 
 int Fixed::getRawBits(void) const
 {
+	# ifdef DEBUG
 	std::cout << "get raw bits is called" << std::endl;
+	# endif
 	return (this->_value);
 }
 
 void Fixed::setRawBits(int const raw)
 {
+	# ifdef DEBUG
 	std::cout << "set raw bits is called" << std::endl;
+	# endif
 	this->_value = raw;
 }
 
 Fixed::~Fixed(void)
 {
+	# ifdef DEBUG
 	std::cout << "Fp Destructor" << std::endl;
+	# endif
+
 }
 
 int Fixed::toInt(void) const
@@ -42,13 +55,18 @@ int Fixed::toInt(void) const
 
 Fixed::Fixed(const int number)
 {
+	# ifdef DEBUG
 	std::cout << "Int constructor called" << std::endl;
+	# endif
 	_value = number << _bitlength;
 }
 
 Fixed::Fixed(const float number)
 {
+
+	# ifdef DEBUG
 	std::cout << "Float constructor called" << std::endl;
+	# endif
 	_value = (int)std::roundf(number * (1 << _bitlength));
 }
 
@@ -109,13 +127,11 @@ Fixed Fixed::operator-(const Fixed& other) const
 
 Fixed Fixed::operator*(const Fixed& other) const
 {
-/*
-	Fixed num = Fixed();
-	//num.setRawBits(((this->_value * other._value) >> this->_bitlength));
-	num.setRawBits((((this->_value) * (other._value >> this->_bitlength))));
+
+/*	Fixed num = Fixed();
+	num.setRawBits(((this->_value * other._value) >> this->_bitlength));
 	return num;
 */
-//TODO: choose toFloat approach over bit shifting
 	return (Fixed((this->toFloat() * other.toFloat())));
 }
 

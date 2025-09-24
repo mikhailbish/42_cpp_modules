@@ -16,7 +16,9 @@ Zombie* zombieHorde( int N, std::string name )
 	for (int i = 0; i < N; i++)
 	{
 		try {
-			horde[i].setName(&name);
+			
+			horde[i] = Zombie(name);
+//			horde[i].setName(&name);
 		}
 		catch (...)
 		{
