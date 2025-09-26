@@ -1,29 +1,16 @@
 #include "Fixed.hpp"
 #include "Point.hpp"
 #include <iostream>
-/*
-	AB
-	BC
-	CD
-	X
-	
-*/
 
 Point getVector(Point a, Point b)
 {
 	return Point(b.getX().toFloat() - a.getX().toFloat(), b.getY().toFloat() - a.getY().toFloat());
 }
-/*
-Fixed getDotProduct(Point vec1, Point vec2)
-{
-	return (vec1.getX().toFloat() * vec2.getX().toFloat() + vec1.getY().toFloat() * vec2.getY().toFloat());
-}
-*/
+
 Fixed getCrossProduct(Point vec1, Point vec2)
 {
 	return vec1.getX() * vec2.getY() - vec1.getY() * vec2.getX();
 }
-
 
 bool bsp( Point const a, Point const b, Point const c, Point const point)
 {
@@ -36,9 +23,6 @@ bool bsp( Point const a, Point const b, Point const c, Point const point)
 	Point BX = getVector(b, point);
 	Point CA = getVector(c, a);
 	Point CX = getVector(c, point);
-//	std::cout << "getVector outputX " << getVector(a, b).getX() << std::endl;
-//	std::cout << "getVector outputY " << getVector(a, b).getY() << std::endl;
-//	<< getDotProduct(AB, AX) << 
 
 	products[0] = getCrossProduct(AB, AX);
 	products[1] = getCrossProduct(BC, BX);
@@ -117,7 +101,5 @@ int main( void ) {
 		std::cout << Y << (bsp(t3.A,t3.B,t3.C,Y) ? " is inside the triangle" : " is outside the triangle") << std::endl;
 		std::cout << Z << (bsp(t3.A,t3.B,t3.C,Z) ? " is inside the triangle" : " is outside the triangle") << std::endl;
 	}
-//	std::cout << Point(10, 20).getX() << std::endl;
-//	std::cout << Point(10, 20).getY() << std::endl;
 	return 0;
 }

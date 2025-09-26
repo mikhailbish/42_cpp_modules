@@ -36,13 +36,11 @@ int Fixed::toInt(void) const
 
 Fixed::Fixed(const int number)
 {
-//	std::cout << "Int constructor called" << std::endl;
 	_value = number << _bitlength;
 }
 
 Fixed::Fixed(const float number)
 {
-//	std::cout << "Float constructor called" << std::endl;
 	_value = (int)std::roundf(number * (1 << _bitlength));
 }
 
