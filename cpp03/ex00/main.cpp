@@ -1,17 +1,28 @@
 #include "ClapTrap.hpp"
 
+void attackUntilNoEnergy(ClapTrap &first, ClapTrap &second)
+{
+	while (first.getEnergy())
+	{
+		first.attack(second.getName());
+		second.takeDamage(first.getAttackDamage());
+	}
+	first.attack(second.getName());
+	second.takeDamage(first.getAttackDamage());
+}
+void repairUntilNoEnergy(ClapTrap &first)
+{
+	while (first.getEnergy())
+	{
+		first.beRepaired(10);
+	}
+	first.beRepaired(10);
+}
+
 int main()
 {
 	ClapTrap first("First");
 	ClapTrap second("second");
-
-	for (int i = 0; i < 20; i++)
-	{
-		first.attack(second.getName());
-//		second.
-	}
-	for (int i = 0; i < 20; i++)
-	{
-		first.beRepaired(10);
-	}
+	attackUntilNoEnergy(first, second);
+	repairUntilNoEnergy(second);
 }
