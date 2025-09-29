@@ -1,6 +1,6 @@
-#include "FragTrap.hpp"
+#include "DiamondTrap.hpp"
 
-void attackUntilNoEnergy(FragTrap &first, FragTrap &second)
+void attackUntilNoEnergy(DiamondTrap &first, DiamondTrap &second)
 {
 	while (first.getEnergy())
 	{
@@ -10,7 +10,7 @@ void attackUntilNoEnergy(FragTrap &first, FragTrap &second)
 	first.attack(second.getName());
 }
 
-void repairUntilNoEnergy(FragTrap &first)
+void repairUntilNoEnergy(DiamondTrap &first)
 {
 	while (first.getEnergy())
 	{
@@ -21,10 +21,16 @@ void repairUntilNoEnergy(FragTrap &first)
 
 int main()
 {
+	DiamondTrap diam("wow");
+	repairUntilNoEnergy(diam);
+	DiamondTrap *diamPtr = new DiamondTrap("heh");
+	delete diamPtr;
+/*
 	FragTrap frag1("yo");
 	FragTrap frag2("wow");
 	frag1.guardGate();
 	frag1.highFivesGuys();
 	attackUntilNoEnergy(frag1, frag2);
 	repairUntilNoEnergy(frag2);
+*/
 }

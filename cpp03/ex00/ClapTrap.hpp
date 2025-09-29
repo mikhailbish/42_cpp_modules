@@ -10,8 +10,12 @@ class ClapTrap {
 		unsigned int _hitPoints;
 		unsigned int _energyPoints;
 		unsigned int _attackDamage;
-		bool _trySpendEnergy(void);
+		bool _tryPerformAction(void);
 
+		static const unsigned int _startHP = 10;
+		static const unsigned int _startEP = 10;
+		static const unsigned int _startAD = 0;
+		
 	public:
 		ClapTrap();
 		ClapTrap(std::string name);

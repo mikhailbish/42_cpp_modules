@@ -43,8 +43,10 @@ ClapTrap& ClapTrap::operator=(const ClapTrap &other)
 }
 
 
-bool ClapTrap::_trySpendEnergy(void)
+bool ClapTrap::_tryPerformAction(void)
 {
+	if (!_hitPoints)
+		return false;
 	if (_energyPoints)
 	{
 		_energyPoints -= 1;
@@ -55,7 +57,7 @@ bool ClapTrap::_trySpendEnergy(void)
 
 void ClapTrap::attack(const std::string& target)
 {
-	if (_trySpendEnergy())
+	if (_tryPerformAction())
 	{
 		std::cout <<  "ClapTrap " <<  _name << " attacks " << target << ", causing " << _attackDamage << " points of damage!" << std::endl;
 		return ;
@@ -80,7 +82,7 @@ void ClapTrap::takeDamage(unsigned int amount)
 
 void ClapTrap::beRepaired(unsigned int amount)
 {
-	if (_trySpendEnergy())
+	if (_tryPerformAction())
 	{
 		if (std::numeric_limits<unsigned int>::max() - amount < _hitPoints)
 		{

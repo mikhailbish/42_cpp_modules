@@ -2,18 +2,18 @@
 
 ClapTrap::ClapTrap()
 {
-	_hitPoints = 0;
-	_energyPoints = 0;
-	_attackDamage = 0;
+	_hitPoints = ClapTrap::_startHP;
+	_energyPoints = ClapTrap::_startEP;
+	_attackDamage = ClapTrap::_startAD;
 	std::cout << "ClapTrap default constructor" << std::endl;
 }
 
 ClapTrap::ClapTrap(std::string name)
 {
 	_name = name;
-	_hitPoints = 10;
-	_energyPoints = 10;
-	_attackDamage = 0;
+	_hitPoints = ClapTrap::_startHP;
+	_energyPoints = ClapTrap::_startEP;
+	_attackDamage = ClapTrap::_startAD;
 	std::cout << "ClapTrap parameterized constructor" << std::endl;
 }
 
@@ -43,8 +43,10 @@ ClapTrap& ClapTrap::operator=(const ClapTrap &other)
 }
 
 
-bool ClapTrap::_trySpendEnergy(void)
+bool ClapTrap::_tryPerformAction(void)
 {
+	if (!_hitPoints)
+		return false;
 	if (_energyPoints)
 	{
 		_energyPoints -= 1;
@@ -55,7 +57,7 @@ bool ClapTrap::_trySpendEnergy(void)
 
 void ClapTrap::attack(const std::string& target)
 {
-	if (_trySpendEnergy())
+	if (_tryPerformAction())
 	{
 		std::cout <<  "ClapTrap " <<  _name << " attacks " << target << ", causing " << _attackDamage << " points of damage!" << std::endl;
 		return ;
@@ -80,7 +82,7 @@ void ClapTrap::takeDamage(unsigned int amount)
 
 void ClapTrap::beRepaired(unsigned int amount)
 {
-	if (_trySpendEnergy())
+	if (_tryPerformAction())
 	{
 		if (std::numeric_limits<unsigned int>::max() - amount < _hitPoints)
 		{

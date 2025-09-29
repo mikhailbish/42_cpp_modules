@@ -11,7 +11,7 @@ class ClapTrap {
 		unsigned int _hitPoints;
 		unsigned int _energyPoints;
 		unsigned int _attackDamage;
-		bool _trySpendEnergy(void);
+		bool _tryPerformAction(void);
 
 	public:
 		ClapTrap();
