@@ -2,6 +2,8 @@
 
 void attackUntilNoEnergy(FragTrap &first, FragTrap &second)
 {
+	if (!first.getHitPoints())
+		return ;
 	while (first.getEnergy())
 	{
 		first.attack(second.getName());
@@ -12,6 +14,8 @@ void attackUntilNoEnergy(FragTrap &first, FragTrap &second)
 
 void repairUntilNoEnergy(FragTrap &first)
 {
+	if (!first.getHitPoints())
+		return ;
 	while (first.getEnergy())
 	{
 		first.beRepaired(10);

@@ -13,6 +13,10 @@ class ClapTrap {
 		unsigned int _attackDamage;
 		bool _tryPerformAction(void);
 
+		static const unsigned int _startHP = 10;
+		static const unsigned int _startEP = 10;
+		static const unsigned int _startAD = 0;
+
 	public:
 		ClapTrap();
 		ClapTrap(std::string name);
@@ -23,6 +27,7 @@ class ClapTrap {
 		void takeDamage(unsigned int amount);
 		void beRepaired(unsigned int amount);
 		std::string getName(void);
+		unsigned int getHitPoints(void);
 		unsigned int getEnergy(void);
 		unsigned int getAttackDamage(void);
 };

@@ -2,6 +2,8 @@
 
 void attackUntilNoEnergy(ClapTrap &first, ClapTrap &second)
 {
+	if (!first.getHitPoints())
+		return ;
 	while (first.getEnergy())
 	{
 		first.attack(second.getName());
@@ -12,6 +14,8 @@ void attackUntilNoEnergy(ClapTrap &first, ClapTrap &second)
 }
 void repairUntilNoEnergy(ClapTrap &first)
 {
+	if (!first.getHitPoints())
+		return ;
 	while (first.getEnergy())
 	{
 		first.beRepaired(10);

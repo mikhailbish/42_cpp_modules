@@ -42,16 +42,19 @@ ClapTrap& ClapTrap::operator=(const ClapTrap &other)
 	return (*this);
 }
 
-
 bool ClapTrap::_tryPerformAction(void)
 {
 	if (!_hitPoints)
+	{
+		std::cout << "ClapTrap " << _name << " doesn't have hitpoints to perform an action" << std::endl;
 		return false;
+	}
 	if (_energyPoints)
 	{
 		_energyPoints -= 1;
 		return (true);
 	}
+	std::cout << "ClapTrap " << _name << " doesn't have energy to perform an action" << std::endl;
 	return (false);
 }
 
@@ -62,7 +65,6 @@ void ClapTrap::attack(const std::string& target)
 		std::cout <<  "ClapTrap " <<  _name << " attacks " << target << ", causing " << _attackDamage << " points of damage!" << std::endl;
 		return ;
 	}
-	std::cout <<  "ClapTrap " <<  _name << " doesn't have energy to attack " << target << std::endl;
 }
 
 void ClapTrap::takeDamage(unsigned int amount)
@@ -96,7 +98,10 @@ void ClapTrap::beRepaired(unsigned int amount)
 		}
 		return ;
 	}
-	std::cout <<  "ClapTrap " <<  _name << " doesn't have energy to repair itself" << std::endl;
+}
+unsigned int ClapTrap::getHitPoints(void)
+{
+	return (_hitPoints);
 }
 
 unsigned int ClapTrap::getEnergy(void)

@@ -2,18 +2,18 @@
 
 ClapTrap::ClapTrap()
 {
-	_hitPoints = 0;
-	_energyPoints = 0;
-	_attackDamage = 0;
+	_hitPoints = ClapTrap::_startHP;
+	_energyPoints = ClapTrap::_startEP;
+	_attackDamage = ClapTrap::_startAD;
 	std::cout << "ClapTrap default constructor" << std::endl;
 }
 
 ClapTrap::ClapTrap(std::string name)
 {
 	_name = name;
-	_hitPoints = 10;
-	_energyPoints = 10;
-	_attackDamage = 0;
+	_hitPoints = ClapTrap::_startHP;
+	_energyPoints = ClapTrap::_startEP;
+	_attackDamage = ClapTrap::_startAD;
 	std::cout << "ClapTrap parameterized constructor" << std::endl;
 }
 
@@ -42,16 +42,19 @@ ClapTrap& ClapTrap::operator=(const ClapTrap &other)
 	return (*this);
 }
 
-
 bool ClapTrap::_tryPerformAction(void)
 {
 	if (!_hitPoints)
+	{
+		std::cout << "ClapTrap " << _name << " doesn't have hitpoints to perform an action" << std::endl;
 		return false;
+	}
 	if (_energyPoints)
 	{
 		_energyPoints -= 1;
 		return (true);
 	}
+	std::cout << "ClapTrap " << _name << " doesn't have energy to perform an action" << std::endl;
 	return (false);
 }
 
@@ -62,7 +65,6 @@ void ClapTrap::attack(const std::string& target)
 		std::cout <<  "ClapTrap " <<  _name << " attacks " << target << ", causing " << _attackDamage << " points of damage!" << std::endl;
 		return ;
 	}
-	std::cout <<  "ClapTrap " <<  _name << " doesn't have energy to attack " << target << std::endl;
 }
 
 void ClapTrap::takeDamage(unsigned int amount)
@@ -96,8 +98,14 @@ void ClapTrap::beRepaired(unsigned int amount)
 		}
 		return ;
 	}
-	std::cout <<  "ClapTrap " <<  _name << " doesn't have energy to repair itself" << std::endl;
 }
+
+
+unsigned int ClapTrap::getHitPoints(void)
+{
+	return (_hitPoints);
+}
+
 
 unsigned int ClapTrap::getEnergy(void)
 {
