@@ -99,6 +99,7 @@ void ClapTrap::beRepaired(unsigned int amount)
 		return ;
 	}
 }
+
 unsigned int ClapTrap::getHitPoints(void)
 {
 	return (_hitPoints);

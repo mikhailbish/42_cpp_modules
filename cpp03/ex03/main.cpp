@@ -26,15 +26,19 @@ void repairUntilNoEnergy(DiamondTrap &first)
 int main()
 {
 	DiamondTrap diam("wow");
-	repairUntilNoEnergy(diam);
-	DiamondTrap *diamPtr = new DiamondTrap("heh");
+//	repairUntilNoEnergy(diam);
+	DiamondTrap *diamPtr = new(std::nothrow)DiamondTrap("heh");
+	ClapTrap *cpptr;
+	ScavTrap *scptr;
+	cpptr = &diam;
+	cpptr->attack("wooooow");
+	scptr = &diam;
+	scptr->guardGate();
+	scptr->attack("zxxczxczxczxcxzczxczxczxczxcxzcxzcxzczxccx");
+	if (diamPtr == nullptr)
+		return 1;
+	diamPtr->whoAmI();
+	diamPtr->attack("yo");
 	delete diamPtr;
-/*
-	FragTrap frag1("yo");
-	FragTrap frag2("wow");
-	frag1.guardGate();
-	frag1.highFivesGuys();
-	attackUntilNoEnergy(frag1, frag2);
-	repairUntilNoEnergy(frag2);
-*/
+	return 0;
 }

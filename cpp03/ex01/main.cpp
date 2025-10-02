@@ -28,8 +28,10 @@ int main()
 	ClapTrap clapSome("meow");
 	ScavTrap scav1("yo");
 	ScavTrap scav2("wow");
+	ScavTrap *scav3 = new (std::nothrow)ScavTrap("HeapScav");
+	if (scav3 == nullptr)
+		return 1;
 	wow = &scav1;
-//	wow->ClapTrap::attack(scav2.getName());
 	std::cout << "---------------------------------------------------------------"<< std::endl;
 	wow->ClapTrap::attack("Base");
 	scav1.ClapTrap::attack("Base");
@@ -39,8 +41,7 @@ int main()
 	std::cout << "---------------------------------------------------------------"<< std::endl;
 	clapSome.attack("test");
 	std::cout << "---------------------------------------------------------------"<< std::endl;
-	
-//	scav1.guardGate();
-//	attackUntilNoEnergy(scav1, scav2);
-//	repairUntilNoEnergy(scav2);
+	attackUntilNoEnergy(scav1, scav2);
+	repairUntilNoEnergy(*scav3);
+	delete scav3;
 }

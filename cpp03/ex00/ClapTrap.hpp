@@ -26,9 +26,9 @@ class ClapTrap {
 		void takeDamage(unsigned int amount);
 		void beRepaired(unsigned int amount);
 		std::string getName(void);
+		unsigned int getHitPoints(void);
 		unsigned int getEnergy(void);
 		unsigned int getAttackDamage(void);
-		unsigned int getHitPoints(void);
 };
 
 #endif

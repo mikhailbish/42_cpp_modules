@@ -2,18 +2,18 @@
 
 ClapTrap::ClapTrap()
 {
-	_hitPoints = ClapTrap::_startHP;
-	_energyPoints = ClapTrap::_startEP;
-	_attackDamage = ClapTrap::_startAD;
+	_hitPoints = 10;
+	_energyPoints = 10;
+	_attackDamage = 0;
 	std::cout << "ClapTrap default constructor" << std::endl;
 }
 
 ClapTrap::ClapTrap(std::string name)
 {
 	_name = name;
-	_hitPoints = ClapTrap::_startHP;
-	_energyPoints = ClapTrap::_startEP;
-	_attackDamage = ClapTrap::_startAD;
+	_hitPoints = 10;
+	_energyPoints = 10;
+	_attackDamage = 0;
 	std::cout << "ClapTrap parameterized constructor" << std::endl;
 }
 

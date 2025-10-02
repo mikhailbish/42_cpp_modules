@@ -1,3 +1,4 @@
+#include <new>
 #include "ClapTrap.hpp"
 
 void attackUntilNoEnergy(ClapTrap &first, ClapTrap &second)
@@ -27,6 +28,12 @@ int main()
 {
 	ClapTrap first("First");
 	ClapTrap second("second");
+
+	ClapTrap *wow = new (std::nothrow) ClapTrap("ClapTrapOnHeap");
+	if (wow == nullptr)
+		return (1);
+	attackUntilNoEnergy(*wow, first);
+	delete wow;
 	attackUntilNoEnergy(first, second);
 	repairUntilNoEnergy(second);
 }

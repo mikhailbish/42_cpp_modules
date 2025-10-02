@@ -4,6 +4,10 @@
 #include "ClapTrap.hpp"
 
 class ScavTrap : virtual public ClapTrap {
+	protected:
+		static const unsigned int initialHP = 100;
+		static const unsigned int initialEP = 50;
+		static const unsigned int initialAD = 20;
 	public:
 		ScavTrap();
 		ScavTrap(std::string name);

@@ -47,12 +47,11 @@ void FragTrap::guardGate()
 
 void FragTrap::attack(const std::string& target)
 {
-	if (_trySpendEnergy())
+	if (_tryPerformAction())
 	{
 		std::cout <<  "ScavTrap " <<  _name << " attacks " << target << ", causing " << _attackDamage << " points of damage!" << std::endl;
 		return ;
 	}
-	std::cout <<  "ScavTrap " <<  _name << " doesn't have energy to attack " << target << std::endl;
 }
 
 void FragTrap::highFivesGuys()

@@ -1,8 +1,11 @@
 #include "DiamondTrap.hpp"
 
-DiamondTrap::DiamondTrap() : ClapTrap() //  ScavTrap(), FragTrap()// ClapTrap()
+DiamondTrap::DiamondTrap() : ClapTrap()
 {
 	std::cout << "DiamondTrap default constructor" << std::endl;
+	_hitPoints = FragTrap::initialHP;
+	_energyPoints = ScavTrap::initialEP;
+	_attackDamage = FragTrap::initialAD;
 }
 
 DiamondTrap::~DiamondTrap()
@@ -10,12 +13,14 @@ DiamondTrap::~DiamondTrap()
 	std::cout << "DiamondTrap destructor" << std::endl;
 }
 
-DiamondTrap::DiamondTrap(std::string name) : ClapTrap(name)
+DiamondTrap::DiamondTrap(std::string name) : ClapTrap(name + "_clap_name")
 {
 	std::cout << "DiamondTrap parameterized constructor" << std::endl;
-	_hitPoints = 100;
-	_energyPoints = 50;
-	_attackDamage = 30;
+	//DiamondTrap::_name = name;
+	_name = name;
+	_hitPoints = FragTrap::initialHP;
+	_energyPoints = ScavTrap::initialEP;
+	_attackDamage = FragTrap::initialAD;
 }
 
 DiamondTrap::DiamondTrap(DiamondTrap& other)
@@ -41,15 +46,10 @@ DiamondTrap& DiamondTrap::operator=(const DiamondTrap &other)
 
 void DiamondTrap::attack(const std::string& target)
 {
-	if (_trySpendEnergy())
-	{
-		std::cout <<  "ScavTrap " <<  _name << " attacks " << target << ", causing " << _attackDamage << " points of damage!" << std::endl;
-		return ;
-	}
-	std::cout <<  "ScavTrap " <<  _name << " doesn't have energy to attack " << target << std::endl;
+	ScavTrap::attack(target);	
 }
 
 void DiamondTrap::whoAmI()
 {
-
+	std::cout << _name << " is questioning it's existense." << std::endl;
 }
