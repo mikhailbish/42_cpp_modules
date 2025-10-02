@@ -16,7 +16,6 @@ DiamondTrap::~DiamondTrap()
 DiamondTrap::DiamondTrap(std::string name) : ClapTrap(name + "_clap_name")
 {
 	std::cout << "DiamondTrap parameterized constructor" << std::endl;
-	//DiamondTrap::_name = name;
 	_name = name;
 	_hitPoints = FragTrap::initialHP;
 	_energyPoints = ScavTrap::initialEP;

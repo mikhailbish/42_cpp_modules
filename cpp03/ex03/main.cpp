@@ -26,8 +26,10 @@ void repairUntilNoEnergy(DiamondTrap &first)
 int main()
 {
 	DiamondTrap diam("wow");
-//	repairUntilNoEnergy(diam);
 	DiamondTrap *diamPtr = new(std::nothrow)DiamondTrap("heh");
+	if (diamPtr == nullptr)
+		return 1;
+
 	ClapTrap *cpptr;
 	ScavTrap *scptr;
 	cpptr = &diam;
@@ -35,8 +37,6 @@ int main()
 	scptr = &diam;
 	scptr->guardGate();
 	scptr->attack("zxxczxczxczxcxzczxczxczxczxcxzcxzcxzczxccx");
-	if (diamPtr == nullptr)
-		return 1;
 	diamPtr->whoAmI();
 	diamPtr->attack("yo");
 	delete diamPtr;
