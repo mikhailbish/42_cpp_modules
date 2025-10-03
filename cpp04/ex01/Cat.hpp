@@ -3,14 +3,18 @@
 #include <iostream>
 #include <string>
 #include "Animal.hpp"
+#include "Brain.hpp"
 
 class Cat : public Animal {
+	private:
+		Brain *head;
 	public:
 		Cat();
 		Cat(Cat &other) = default;
 		Cat& operator=(const Cat &other) = default;
-		~Cat() = default;
+		~Cat();
 		void makeSound() const override;
+		Brain *getBrain() const;
 };
 
 #endif

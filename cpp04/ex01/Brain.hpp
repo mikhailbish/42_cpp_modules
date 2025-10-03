@@ -9,9 +9,9 @@ class Brain {
 		std::string ideas[IDEA_COUNT];
 	public:
 		Brain();
-		Brain(Brain &other);
-		Brain &operator=(Brain &other);
-		~Brain();
+		Brain(Brain &other) = default;
+		Brain &operator=(Brain &other) = default;
+		~Brain() = default;
 };
 
 #endif

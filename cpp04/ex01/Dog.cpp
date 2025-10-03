@@ -13,5 +13,11 @@ void Dog::makeSound() const
 
 Dog::~Dog()
 {
-	delete head;
+	if (head != nullptr)
+		delete head;
+}
+
+Brain *Dog::getBrain() const
+{
+	return head;
 }

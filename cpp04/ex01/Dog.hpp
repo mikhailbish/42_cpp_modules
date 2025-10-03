@@ -3,6 +3,7 @@
 #include <iostream>
 #include <string>
 #include "Animal.hpp"
+#include "Brain.hpp"
 
 class Dog : public Animal {
 	private:
@@ -14,6 +15,7 @@ class Dog : public Animal {
 		Dog& operator=(const Dog &other) = default;
 		~Dog();
 		void makeSound() const override;
+		Brain *getBrain() const;
 };
 
 #endif

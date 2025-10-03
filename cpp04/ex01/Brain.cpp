@@ -12,3 +12,17 @@ Brain::Brain()
 		i++;
 	}
 }
+
+std::string Brain::getIdea(int index)
+{
+	if (index < 0 || index >= IDEA_COUNT)
+		return "";
+	return ideas[index];
+}
+
+std::string Brain::setIdea(int index, std::string idea)
+{
+	if (index < 0 || index >= IDEA_COUNT)
+		return "";
+	return ideas[index] = idea;
+}
