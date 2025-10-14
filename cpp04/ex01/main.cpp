@@ -36,13 +36,15 @@ void animalsProcess(Animal **animals)
 	}
 }
 
+#define ANIMALNUM 10
 int main()
 {
 /*
+//TODO: delete
 	{
-		Animal animalArray[10];
+		Animal animalArray[ANIMALNUM];
 		std::cout << "-----------------------------------------------------"<<std::endl;
-		for (int i = 0; i < 10; i++)
+		for (int i = 0; i < ANIMALNUM; i++)
 		{
 			if (i % 2 == 0)
 				animalArray[i] = Dog();
@@ -52,20 +54,28 @@ int main()
 		}
 		std::cout << "-----------------------------------------------------"<<std::endl;
 	}
-
+*/
+/*
+//TODO: keep
 	{
-		Animal *animalArray[10];
-		std::cout << "-----------------------------------------------------"<<std::endl;
-		for (int i = 0; i < 10; i++)
+		Animal *animalArray[ANIMALNUM];
+		for (int i = 0; i < ANIMALNUM; i++)
 		{
-			if (i % 2 == 0)
-				animalArray[i] = new Dog();
-			else
-				animalArray[i] = new Cat();
-			animalArray[i].makeSound();
+			animalArray[i] = nullptr;
 		}
 		std::cout << "-----------------------------------------------------"<<std::endl;
-		for (int i = 0; i < 10; i++)
+		for (int i = 0; i < ANIMALNUM; i++)
+		{
+			if (i % 2 == 0)
+				animalArray[i] = new(std::nothrow)Dog();
+			else
+				animalArray[i] = new(std::nothrow)Cat();
+			if (animalArray[i] == nullptr)
+				break;
+			animalArray[i]->makeSound();
+		}
+		std::cout << "-----------------------------------------------------"<<std::endl;
+		for (int i = 0; i < ANIMALNUM; i++)
 		{
 			delete animalArray[i];
 		}
@@ -104,7 +114,7 @@ int main()
 		std::cout << "-----------------------------------------------------"<<std::endl;
 	}
 */
-/*
+
 	{
 	//	Animal **animalPtrArray;
 		Animal *animalArray[10];
@@ -135,7 +145,7 @@ int main()
 			animalArray[i]->makeSound();
 		std::cout << "-----------------------------------------------------"<<std::endl;
 	}
-*/
+
 
 
 
