@@ -1,4 +1,3 @@
-#include <new>
 #include "ClapTrap.hpp"
 
 void attackUntilNoEnergy(ClapTrap &first, ClapTrap &second)
@@ -13,6 +12,7 @@ void attackUntilNoEnergy(ClapTrap &first, ClapTrap &second)
 	first.attack(second.getName());
 	second.takeDamage(first.getAttackDamage());
 }
+
 void repairUntilNoEnergy(ClapTrap &first)
 {
 	if (!first.getHitPoints())

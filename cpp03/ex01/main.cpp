@@ -11,6 +11,7 @@ void attackUntilNoEnergy(ScavTrap &first, ScavTrap &second)
 	}
 	first.attack(second.getName());
 }
+
 void repairUntilNoEnergy(ScavTrap &first)
 {
 	if (!first.getHitPoints())
