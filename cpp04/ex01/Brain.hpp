@@ -11,7 +11,7 @@ class Brain {
 	public:
 		Brain();
 		Brain(Brain &other);
-		Brain &operator=(Brain &other) = default;
+		Brain &operator=(Brain &other);
 		~Brain();
 		std::string getIdea(int index);
 		void setIdea(int index, std::string idea);

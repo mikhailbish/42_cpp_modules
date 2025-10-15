@@ -22,6 +22,17 @@ Brain::Brain(Brain &other)
 	}
 }
 
+Brain &Brain::operator=(Brain &other)
+{
+	if (this == &other)
+		return (*this);
+	for (int i = 0; i < IDEA_COUNT; i++)
+	{
+		this->ideas[i] = other.ideas[i];
+	}
+	return (*this);
+}
+
 std::string Brain::getIdea(int index)
 {
 	if (index < 0 || index >= IDEA_COUNT)

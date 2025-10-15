@@ -39,30 +39,8 @@ void animalsProcess(Animal **animals)
 #define ANIMALNUM 10
 int main()
 {
-/*
-//TODO: delete
 	{
-		Animal animalArray[ANIMALNUM];
-		std::cout << "-----------------------------------------------------"<<std::endl;
-		for (int i = 0; i < ANIMALNUM; i++)
-		{
-			if (i % 2 == 0)
-				animalArray[i] = Dog();
-			else
-				animalArray[i] = Cat();
-			animalArray[i].makeSound();
-		}
-		std::cout << "-----------------------------------------------------"<<std::endl;
-	}
-*/
-/*
-//TODO: keep
-	{
-		Animal *animalArray[ANIMALNUM];
-		for (int i = 0; i < ANIMALNUM; i++)
-		{
-			animalArray[i] = nullptr;
-		}
+		Animal *animalArray[ANIMALNUM] = {nullptr};
 		std::cout << "-----------------------------------------------------"<<std::endl;
 		for (int i = 0; i < ANIMALNUM; i++)
 		{
@@ -81,75 +59,32 @@ int main()
 		}
 		
 	}
-*/
-/*
-	{
-		Animal *animalPtrArray[10];
-		Animal animalArray[10];
-		(void)animalPtrArray;
-//		Dog dogs[5];
-//		Cat cats[5];
-		for (int i = 0; i < 10; i++)
-		{
-			animalPtrArray[i] = &animalArray[i];
-		}
-//		animalPtrArray = (Animal **)&animalArray;
-		std::cout << "-----------------------------------------------------"<<std::endl;
-		for (int i = 0; i < 10; i++)
-		{
-			if (i % 2 == 0)
-				*animalPtrArray[i] = Dog();
-			else
-				*animalPtrArray[i] = Cat();
-	//		animalArray[i].makeSound();
-		}
-		animalsProcess(animalPtrArray);
-//		for (int i = 0; i < 5; i++)
-//		{
-//			dogs[i].~Dog();
-//			cats[i].~Cat();
-//		}
-//		for (int i = 0; i < 10; i++)
-//			animalArray[i].makeSound();
-		std::cout << "-----------------------------------------------------"<<std::endl;
-	}
-*/
 
 	{
-	//	Animal **animalPtrArray;
-		Animal *animalArray[10];
-//		Animal animals[10];
-		for (int i = 0; i < 10; i++)
+		Animal *animalArray[ANIMALNUM / 2] = {nullptr};
+		Dog dogs[ANIMALNUM / 2];
+		Cat cats[ANIMALNUM / 2];
+		for (int i = 0; i < ANIMALNUM / 2; i++)
 		{
-//			animalArray[i] = &animals[i];
+			if (!checkBrain(cats[i]))
+				return (1);
+			if (!checkBrain(dogs[i]))
+				return (1);
 		}
-//		(void)animalPtrArray;
-		Dog dogs[5];
-		Cat cats[5];
-//		animalPtrArray = (Animal **)&animalArray;
 		std::cout << "-----------------------------------------------------"<<std::endl;
-		for (int i = 0; i < 10; i++)
+		for (int i = 0; i < ANIMALNUM; i++)
 		{
 			if (i % 2 == 0)
 				animalArray[i] = &dogs[i/2];
 			else
 				animalArray[i] = &cats[i/2];
 		}
-		for (int i = 0; i < 5; i++)
-		{
-//			dogs[i].~Animal();
-//			cats[i].~Animal();
-		}
 		(void)animalArray;
-		for (int i = 0; i < 10; i++)
+		for (int i = 0; i < ANIMALNUM; i++)
 			animalArray[i]->makeSound();
 		std::cout << "-----------------------------------------------------"<<std::endl;
 	}
 
-
-
-
-/*
 	Cat catA;
 	if (!checkBrain(catA))
 		return (1);
@@ -157,8 +92,9 @@ int main()
 	if (!checkBrain(catB))
 		return (1);
 	catB = catA;
+	catA.getBrain()->setIdea(0, "new idea");
+	std::cout << "catB 0th idea " << catB.getBrain()->getIdea(0) << std::endl;
 	if (!checkBrain(catB))
 		return (1);
-	*/
 	return (0);
 }
