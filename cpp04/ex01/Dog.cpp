@@ -9,6 +9,7 @@ Dog::Dog()
 
 Dog::Dog(Dog &other)
 {
+	std::cout << "Dog copy constructor" << std::endl;
 	Brain *otherBrain = other.getBrain();
 	if (otherBrain == nullptr)
 		head = new (std::nothrow) Brain();
@@ -18,6 +19,7 @@ Dog::Dog(Dog &other)
 
 Dog& Dog::operator=(const Dog &other)
 {
+	std::cout << "Dog copy assignment constructor" << std::endl;
 	if (this == &other)
 		return *this;
 	Brain *otherBrain = other.getBrain();

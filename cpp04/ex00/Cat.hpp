@@ -7,9 +7,9 @@
 class Cat : public Animal {
 	public:
 		Cat();
-		Cat(Cat &other) = default;
-		Cat& operator=(const Cat &other) = default;
-		~Cat() = default;
+		Cat(Cat &other);
+		Cat& operator=(const Cat &other);
+		~Cat();
 		void makeSound() const override;
 };
 

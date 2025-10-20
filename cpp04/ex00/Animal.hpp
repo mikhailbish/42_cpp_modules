@@ -8,9 +8,9 @@ class Animal {
 		std::string type;
 	public:
 		Animal();
-		Animal(Animal &other) = default;
-		Animal &operator=(const Animal &other) = default;
-		virtual ~Animal() = default;
+		Animal(Animal &other);
+		Animal &operator=(const Animal &other);
+		virtual ~Animal();
 		virtual void makeSound() const;
 		std::string getType() const;
 };

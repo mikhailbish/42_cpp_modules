@@ -8,9 +8,9 @@ class WrongAnimal {
 		std::string type;
 	public:
 		WrongAnimal();
-		WrongAnimal(WrongAnimal &other) = default;
-		WrongAnimal &operator=(const WrongAnimal &other) = default;
-		virtual ~WrongAnimal() = default;
+		WrongAnimal(WrongAnimal &other);
+		WrongAnimal &operator=(const WrongAnimal &other);
+		virtual ~WrongAnimal();
 		void makeSound() const;
 		std::string getType() const;
 };
