@@ -24,18 +24,6 @@ int checkBrain(Dog &cat)
 	return (cat.getBrain() != nullptr);
 }
 
-void animalsProcess(Animal **animals)
-{
-	try {
-		for (int i = 0; i < 10; i++)
-			animals[i]->makeSound();
-	}
-	catch (std::exception &e)
-	{
-		std::cout << "Error: "  << e.what() << std::endl;
-	}
-}
-
 #define ANIMALNUM 10
 int main()
 {
@@ -79,7 +67,6 @@ int main()
 			else
 				animalArray[i] = &cats[i/2];
 		}
-		(void)animalArray;
 		for (int i = 0; i < ANIMALNUM; i++)
 			animalArray[i]->makeSound();
 		std::cout << "-----------------------------------------------------"<<std::endl;
@@ -92,9 +79,9 @@ int main()
 	if (!checkBrain(catB))
 		return (1);
 	catB = catA;
-	catA.getBrain()->setIdea(0, "new idea");
-	std::cout << "catB 0th idea " << catB.getBrain()->getIdea(0) << std::endl;
 	if (!checkBrain(catB))
 		return (1);
+	catA.getBrain()->setIdea(0, "new idea");
+	std::cout << "catB 0th idea " << catB.getBrain()->getIdea(0) << std::endl;
 	return (0);
 }

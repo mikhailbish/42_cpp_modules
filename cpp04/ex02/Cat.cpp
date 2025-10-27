@@ -39,7 +39,7 @@ void Cat::makeSound() const
 
 Cat::~Cat()
 {
-	std::cout << "cat destructor" << std::endl;
+	std::cout << "Cat destructor" << std::endl;
 	if (head != nullptr)
 		delete head;
 }

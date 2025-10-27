@@ -80,9 +80,9 @@ int main()
 	if (!checkBrain(catB))
 		return (1);
 	catB = catA;
-	catA.getBrain()->setIdea(0, "new idea");
-	std::cout << "catB 0th idea " << catB.getBrain()->getIdea(0) << std::endl;
 	if (!checkBrain(catB))
 		return (1);
+	catA.getBrain()->setIdea(0, "new idea");
+	std::cout << "catB 0th idea " << catB.getBrain()->getIdea(0) << std::endl;
 	return (0);
 }
