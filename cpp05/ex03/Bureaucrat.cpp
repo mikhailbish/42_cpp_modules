@@ -55,7 +55,7 @@ unsigned char Bureaucrat::getGrade() const
 	return _grade;
 }
 
-void Bureaucrat::signForm(Form &form)
+void Bureaucrat::signForm(AForm &form)
 {
 	try {
 		form.beSigned(*this);
@@ -63,6 +63,17 @@ void Bureaucrat::signForm(Form &form)
 	}
 	catch (std::exception &e) {
 		std::cout << *this << " couldn't sign " << form << std::endl << "because " << e.what() << std::endl;
+	}
+}
+
+void Bureaucrat::executeForm(AForm const &form)
+{
+	try {
+		form.execute(*this);
+		std::cout << *this << " executed " << form << std::endl;
+	} catch (std::exception &e)
+	{
+		std::cout << *this << " couldn't execute a form becuase: "<< e.what() << std::endl;
 	}
 }
 

@@ -1,5 +1,5 @@
-#ifndef FORM_HPP 
-# define FORM_HPP
+#ifndef AFORM_HPP 
+# define AFORM_HPP
 
 # include <string>
 # include <iostream>
@@ -8,21 +8,25 @@
 
 class Bureaucrat;
 
-class Form {
+class AForm {
 	private:
 		const std::string _name;
 		bool _isSigned;
 		const unsigned char _gradeSign;
 		const unsigned char _gradeExec;
+		std::string _target;
 		void _checkGrade(unsigned char _grade);
+		virtual void _execute() const = 0;
 	public:
-		Form();
-		Form(std::string name, unsigned char gradeSign, unsigned char gradeExec);
-		~Form();
-		Form(Form &);
-		Form &operator=(const Form &other) = delete;
+		AForm();
+		AForm(std::string name, unsigned char gradeSign, unsigned char gradeExec, std::string);
+		virtual ~AForm();
+		AForm(AForm &);
+		AForm &operator=(const AForm &other) = delete;
 		std::string getName() const;
 		bool getIsSigned() const;
+		std::string getTarget() const;
+		void setTarget(std::string target);
 		unsigned char getGradeSign() const;
 		unsigned char getGradeExec() const;
 		class GradeTooLowException : public std::exception
@@ -35,14 +39,20 @@ class Form {
 			public:
 				virtual const char* what() const noexcept override;
 		};
-		class FormAlreadySignedException : public std::exception
+		class AFormAlreadySignedException : public std::exception
+		{
+			public:
+				virtual const char* what() const noexcept override;
+		};
+		class AFormNotSignedException : public std::exception
 		{
 			public:
 				virtual const char* what() const noexcept override;
 		};
 		void beSigned(Bureaucrat &);
+		void execute(Bureaucrat const &) const;
 };
 
-std::ostream &operator<<(std::ostream &, const Form &);
+std::ostream &operator<<(std::ostream &, const AForm &);
 
 #endif

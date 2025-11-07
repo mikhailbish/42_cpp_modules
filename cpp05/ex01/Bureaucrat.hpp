@@ -13,10 +13,9 @@ class Bureaucrat {
 		void _checkGrade(unsigned char _grade);
 	public:
 		Bureaucrat();
-		explicit Bureaucrat(std::string, unsigned char);
+		Bureaucrat(std::string, unsigned char);
 		Bureaucrat(Bureaucrat& other);
-//TODO: think through and copy to the other exercises
-		Bureaucrat& operator=(const Bureaucrat &other);
+		Bureaucrat& operator=(const Bureaucrat &other) = delete;
 		~Bureaucrat();
 		std::string getName() const;
 		unsigned char getGrade() const;

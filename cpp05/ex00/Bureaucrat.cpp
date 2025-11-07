@@ -12,13 +12,6 @@ Bureaucrat::Bureaucrat(std::string name, unsigned char grade) : _name(name)
 Bureaucrat::Bureaucrat(Bureaucrat& other) : _name(other._name), _grade(other._grade)
 {}
 
-Bureaucrat& Bureaucrat::operator=(const Bureaucrat &other)
-{
-	if (this != &other)
-		_grade = other._grade;
-	return (*this);
-}
-
 Bureaucrat::~Bureaucrat()
 {}
 

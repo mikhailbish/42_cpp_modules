@@ -13,15 +13,6 @@ Form::Form(Form &other) : _name(other._name), _isSigned(false), _gradeSign(other
 {
 }
 
-Form &Form::operator=(const Form &other)
-{
-//TODO: think through
-	if (this != &other)
-	{
-	}
-	return *this;
-}
-
 std::string Form::getName() const
 {
 	return _name;

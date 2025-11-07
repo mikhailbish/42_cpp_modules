@@ -3,13 +3,15 @@
 
 int main()
 {
-	Form testFormA("form1", 4, 4); 
 	Form testFormB("form2", 4, 4); 
-	testFormB = testFormA;
 	Form testFormC(testFormB);
 	std::cout << testFormC << std::endl;
 	try 
 	{
+		Form testFormK("formK", 0, 20); 
+		std::cout << testFormK << std::endl;
+		
+		Form testFormA("form1", 20, 20); 
 		Bureaucrat asd("dude", 14);
 		asd.promote();
 		std::cout << asd << std::endl;
@@ -24,8 +26,10 @@ int main()
 
 	try 
 	{
-		Bureaucrat asd("dude", 1);
-		asd.promote();
+		Form testFormA("form1", 1, 1); 
+		Bureaucrat asd("dude", 2);
+		asd.demote();
+		asd.signForm(testFormA);
 		std::cout << asd << std::endl;
 	}
 	catch (std::exception &e)
@@ -34,8 +38,9 @@ int main()
 	}
 	try 
 	{
-		Bureaucrat asd("dude", 150);
-		asd.demote();
+		Bureaucrat asd;
+		Form form;
+		asd.signForm(form);
 		std::cout << asd << std::endl;
 	}
 	catch (std::exception &e)

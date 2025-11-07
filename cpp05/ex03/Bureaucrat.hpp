@@ -2,6 +2,10 @@
 # define BUREUCRAT_HPP
 #include <string>
 #include <iostream>
+#include "AForm.hpp"
+
+class AForm;
+
 class Bureaucrat {
 	private:
 		const std::string _name;
@@ -9,7 +13,7 @@ class Bureaucrat {
 		void _checkGrade(unsigned char _grade);
 	public:
 		Bureaucrat();
-		Bureaucrat(std::string, unsigned char);
+		explicit Bureaucrat(std::string, unsigned char);
 		Bureaucrat(Bureaucrat& other);
 		Bureaucrat& operator=(const Bureaucrat &other) = delete;
 		~Bureaucrat();
@@ -27,7 +31,8 @@ class Bureaucrat {
 			public:
 				virtual const char* what() const noexcept override;
 		};
-
+		void signForm(AForm &);
+		void executeForm(AForm const & form);
 };
 std::ostream &operator<<(std::ostream &, const Bureaucrat &);
 #endif
