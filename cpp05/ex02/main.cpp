@@ -19,6 +19,7 @@ int main()
 		Bureaucrat someone("fisrt", 1);
 		someone.signForm(preFrom);
 		someone.executeForm(preFrom);
+		someone.executeForm(asd);
 	}
 	catch (std::exception &e)
 	{

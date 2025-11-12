@@ -29,8 +29,6 @@ int main()
 	try 
 	{
 		Bureaucrat asd("dude", 150);
-		Bureaucrat wow;
-		wow = asd;
 		asd.demote();
 		std::cout << asd << std::endl;
 	}
