@@ -23,6 +23,8 @@ bool ScalarConverter::_isValidDouble(const std::string &text)
 		long double longDoubleNumber = stold(text, &endIdx);
 		if (!((text[endIdx] == 'f' && text.length() - 1 == endIdx ) ||  !text[endIdx]))
 			return (false);
+		if (std::isnan(doubleNumber) || std::isinf(doubleNumber))
+			return (true);
 		if (static_cast<long double>(doubleNumber) - longDoubleNumber != 0)
 			return (false);
 		return (true);
@@ -40,6 +42,8 @@ bool ScalarConverter::_isValidFloat(const std::string &text)
 		float fnum = stof(text, &endIdx);
 		if (!((text[endIdx] == 'f' && text.length() - 1 == endIdx ) ||  !text[endIdx]))
 			return (false);
+		if (std::isnan(fnum) || std::isinf(fnum))
+			return (true);
 		if (!((static_cast<double>(fnum) - stod(text)) == 0))
 			return (false);
 		return (true);

@@ -7,6 +7,7 @@
 # include <sstream>
 # include <iomanip>
 # include <limits>
+# include <cmath>
 
 
 class ScalarConverter {
