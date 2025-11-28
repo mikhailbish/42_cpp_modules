@@ -6,6 +6,7 @@
 //# include <cstdlib>
 # include <sstream>
 # include <iomanip>
+# include <limits>
 
 
 class ScalarConverter {
@@ -14,16 +15,16 @@ class ScalarConverter {
 		ScalarConverter(ScalarConverter &) = delete;
 		ScalarConverter &operator=(ScalarConverter &) = delete;
 		~ScalarConverter() = delete;
-/*
+
 		static bool _isValidDouble(const std::string &);
 		static bool _isValidFloat(const std::string &);
 		static bool _isValidInt(const std::string &);
 		static bool _isValidChar(const std::string &);
-*/
-		static std::string _resolvedDouble(const std::string &text);
-		static std::string _resolvedInteger(const std::string &text);
-		static std::string _resolvedFloat(const std::string &text);
-		static std::string _resolvedChar(const std::string &text);
+		static bool _isValidLong(const std::string &);
+		static std::string _resolve(double num, bool isValidInt);
+		static std::string _resolve(float num, bool isValidInt);
+		static std::string _resolve(int num);
+		static std::string _resolve(char num);
 	public:
 		static void convert(const std::string &);
 };
