@@ -24,7 +24,8 @@ bool ScalarConverter::_isValidFloat(const std::string &text)
 	try {
 		size_t endIdx;
 		float fnum = stof(text, &endIdx);
-		if (!( !text[endIdx] || (text[endIdx] == 'f' && (text.length() - 1 == endIdx) && std::isdigit( text[endIdx - 1]))))
+		bool hasAppropriateEnd = (text[endIdx] == '\0') || (text[endIdx] == 'f' && (text.length() - 1 == endIdx) && std::isdigit( text[endIdx - 1]));
+		if (!hasAppropriateEnd)
 			return (false);
 		if (std::isnan(fnum) || std::isinf(fnum))
 			return (true);
@@ -40,7 +41,7 @@ bool ScalarConverter::_isValidFloat(const std::string &text)
 
 bool ScalarConverter::_isValidChar(const std::string &text)
 {
-	return (text.length() == 1);
+	return (text.length() == 1 && std::isprint(text[0]));
 }
 
 std::string ScalarConverter::_resolve(double num)
