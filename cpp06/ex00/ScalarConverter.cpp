@@ -115,7 +115,7 @@ std::string ScalarConverter::_resolve(int num)
 std::string ScalarConverter::_resolve(char num)
 {
 	std::ostringstream str;
-	if (std::isprint(num))
+	if (std::isprint(static_cast<unsigned char>(num)))
 	{
 		str << "'" << num << "'";
 		return str.str();
