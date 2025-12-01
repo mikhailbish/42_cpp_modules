@@ -22,6 +22,10 @@ class ScalarConverter {
 			return (static_cast<From>(result) - src == 0);
 		}
 
+		static bool _isValidDouble(const std::string &);
+		static bool _isValidFloat(const std::string &);
+		static bool _isValidChar(const std::string &);
+
 		static std::string _resolve(double num);
 		static std::string _resolve(float num);
 		static std::string _resolve(int num);
@@ -43,8 +47,7 @@ class ScalarConverter {
 			std::cout << "double: " << (possibleDouble	? _resolve(static_cast<double>(num))	: imp) << std::endl;
 		}
 
-		static bool _isValidDouble(const std::string &);
-		static bool _isValidFloat(const std::string &);
+		
 	public:
 		static void convert(const std::string &);
 };

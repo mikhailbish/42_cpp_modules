@@ -38,6 +38,11 @@ bool ScalarConverter::_isValidFloat(const std::string &text)
 	}
 }
 
+bool ScalarConverter::_isValidChar(const std::string &text)
+{
+	return (text.length() == 1);
+}
+
 std::string ScalarConverter::_resolve(double num)
 {
 	std::ostringstream str;
@@ -80,10 +85,13 @@ void ScalarConverter::convert(const std::string &text)
 {
 	bool 	validDouble	= _isValidDouble(text);
 	bool	validFloat	= _isValidFloat(text);
+	bool	validChar	= _isValidChar(text);
 	if (validDouble)
 		ScalarConverter::_resolveOutput<double>(stod(text), true);
 	else if (validFloat)
 		ScalarConverter::_resolveOutput<float>(stof(text), true);
+	else if (validChar)
+		ScalarConverter::_resolveOutput<char>(text[0], true);
 	else
 		ScalarConverter::_resolveOutput<int>(0, false);
 }
