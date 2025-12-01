@@ -57,6 +57,7 @@ std::string ScalarConverter::_resolve(float num)
 		str << std::setprecision(std::numeric_limits<float>::digits10)<< num << "f";
 	return str.str();
 }
+
 std::string ScalarConverter::_resolve(int num)
 {
 	std::ostringstream str;
@@ -74,7 +75,6 @@ std::string ScalarConverter::_resolve(char num)
 	}
 	return "Non displayable";
 }
-
 
 void ScalarConverter::convert(const std::string &text)
 {

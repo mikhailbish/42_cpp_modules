@@ -28,13 +28,19 @@ class ScalarConverter {
 		static std::string _resolve(char num);
 
 		template<typename T>
-		static void _resolveOutput(T num, bool res)
+		static void _resolveOutput(T num, bool valid)
 		{
-			std::string imp = "impossible";
-			std::cout << "char: "	<< (res && _isAccurateConversion<T, char>(num)	? _resolve(static_cast<char>(num))	: imp) << std::endl;
-			std::cout << "int: "	<< (res && _isAccurateConversion<T, int>(num)	? _resolve(static_cast<int>(num))	: imp) << std::endl;
-			std::cout << "float: "	<< (res && (_isAccurateConversion<T, float>(num) || std::isnan(num) || std::isinf(num))	? _resolve(static_cast<float>(num))	: imp) << std::endl;
-			std::cout << "double: " << (res && (_isAccurateConversion<T, double>(num) || std::isnan(num) || std::isinf(num))	? _resolve(static_cast<double>(num))	: imp) << std::endl;
+			std::string imp		= "impossible";
+
+			bool possibleChar	= valid && _isAccurateConversion<T, char>(num);
+			bool possibleInt	= valid && _isAccurateConversion<T, int>(num);
+			bool possibleFloat	= valid && (_isAccurateConversion<T, float>(num) || std::isnan(num) || std::isinf(num));
+			bool possibleDouble	= valid && (_isAccurateConversion<T, double>(num) || std::isnan(num) || std::isinf(num));
+
+			std::cout << "char: "	<< (possibleChar	? _resolve(static_cast<char>(num))	: imp) << std::endl;
+			std::cout << "int: "	<< (possibleInt		? _resolve(static_cast<int>(num))	: imp) << std::endl;
+			std::cout << "float: "	<< (possibleFloat	? _resolve(static_cast<float>(num))	: imp) << std::endl;
+			std::cout << "double: " << (possibleDouble	? _resolve(static_cast<double>(num))	: imp) << std::endl;
 		}
 
 		static bool _isValidDouble(const std::string &);
