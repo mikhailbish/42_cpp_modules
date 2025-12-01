@@ -24,7 +24,7 @@ bool ScalarConverter::_isValidFloat(const std::string &text)
 	try {
 		size_t endIdx;
 		float fnum = stof(text, &endIdx);
-		if (text[endIdx])
+		if (!( !text[endIdx] || (text[endIdx] == 'f' && (text.length() - 1 == endIdx) && std::isdigit( text[endIdx - 1]))))
 			return (false);
 		if (std::isnan(fnum) || std::isinf(fnum))
 			return (true);
@@ -44,7 +44,7 @@ std::string ScalarConverter::_resolve(double num)
 	if (_isAccurateConversion<double, long>(num))
 		str << std::setprecision(1) << std::fixed << num;
 	else
-		str << std::setprecision(std::numeric_limits<double>::digits10)<< num;
+		str << std::setprecision(std::numeric_limits<long double>::digits10)<< num;
 	return str.str();
 }
 
@@ -54,7 +54,7 @@ std::string ScalarConverter::_resolve(float num)
 	if (_isAccurateConversion<float, long>(num))
 		str << std::setprecision(1) << std::fixed << num << "f";
 	else
-		str << std::setprecision(std::numeric_limits<float>::digits10)<< num << "f";
+		str << std::setprecision(std::numeric_limits<long double>::digits10)<< num << "f";
 	return str.str();
 }
 
@@ -83,7 +83,7 @@ void ScalarConverter::convert(const std::string &text)
 	if (validDouble)
 		ScalarConverter::_resolveOutput<double>(stod(text), true);
 	else if (validFloat)
-		ScalarConverter::_resolveOutput<int>(stof(text), true);
+		ScalarConverter::_resolveOutput<float>(stof(text), true);
 	else
 		ScalarConverter::_resolveOutput<int>(0, false);
 }
