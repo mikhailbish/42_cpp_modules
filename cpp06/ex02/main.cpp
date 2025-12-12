@@ -8,21 +8,28 @@ Base *generate(void)
 {
 	int random = rand() % 3;
 	if (random == 0)
-		return new(std::nothrow)A();
+	{
+		std::cout << "generated A" << std::endl;
+		return dynamic_cast<Base *>(new(std::nothrow)A());
+	}
 	if (random == 1)
-		return new(std::nothrow)B();
-	return new(std::nothrow)C();
+	{
+		std::cout << "generated B" << std::endl;
+		return dynamic_cast<Base *>(new(std::nothrow)B());
+	}
+	std::cout << "generated C" << std::endl;
+	return dynamic_cast<Base *>(new(std::nothrow)C());
 }
 
 void identify(Base *p)
 {
 	try {
 		if (dynamic_cast<A *>(p))
-			std::cout << "A" << std::endl;
+			std::cout << "Pointer to " << "A" << std::endl;
 		if (dynamic_cast<B *>(p))
-			std::cout << "B" << std::endl;
+			std::cout << "Pointer to " << "B" << std::endl;
 		if (dynamic_cast<C *>(p))
-			std::cout << "C" << std::endl;
+			std::cout << "Pointer to " << "C" << std::endl;
 	} catch (std::exception &e)
 	{
 		std::cout << "Error in identify ptr" << e.what() << std::endl;
@@ -34,19 +41,19 @@ void identify(Base &p)
 	try {
 		A &refA = dynamic_cast<A &>(p);
 		(void)refA;
-		std::cout << "A" << std::endl;
+		std::cout << "Ref to " << "A" << std::endl;
 	} catch (std::exception &e)
 	{}
 	try {
 		B &refB = dynamic_cast<B &>(p);
 		(void)refB;
-		std::cout << "B" << std::endl;
+		std::cout << "Ref to " << "B" << std::endl;
 	} catch (std::exception &e)
 	{}
 	try {
 		C &refC = dynamic_cast<C &>(p);
 		(void)refC;
-		std::cout << "C" << std::endl;
+		std::cout << "Ref to " << "C" << std::endl;
 	} catch (std::exception &e)
 	{}
 }

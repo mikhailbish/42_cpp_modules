@@ -3,6 +3,7 @@
 
 struct Data {
 	int importantData;
+	int notImportantData;
 };
 
 #endif
