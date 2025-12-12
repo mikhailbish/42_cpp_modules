@@ -10,15 +10,15 @@ Base *generate(void)
 	if (random == 0)
 	{
 		std::cout << "generated A" << std::endl;
-		return dynamic_cast<Base *>(new(std::nothrow)A());
+		return dynamic_cast<Base *>(new A());
 	}
 	if (random == 1)
 	{
 		std::cout << "generated B" << std::endl;
-		return dynamic_cast<Base *>(new(std::nothrow)B());
+		return dynamic_cast<Base *>(new B());
 	}
 	std::cout << "generated C" << std::endl;
-	return dynamic_cast<Base *>(new(std::nothrow)C());
+	return dynamic_cast<Base *>(new C());
 }
 
 void identify(Base *p)
