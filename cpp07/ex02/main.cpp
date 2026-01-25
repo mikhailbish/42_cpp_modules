@@ -1,68 +1,53 @@
-/*
 #include "Array.hpp"
+
+void setNextPrime(int &num);
+#define ARR_LEN 100
 int main()
 {
 	try {
-		Array<int> intArr(10);
-		
+		Array<int> intArr(ARR_LEN);
+		Array<int> intArr2;
+		iter<int>(intArr, ARR_LEN, &setNextPrime);
+		iter<int>(intArr, ARR_LEN, &print<int>);
+		intArr2 = intArr;
+		iter<int>(intArr2, ARR_LEN, &print<int>);
+		Array<int> intArr3 = intArr;
+		iter<int>(intArr3, ARR_LEN, &print<int>);
 	}
 	catch (std::exception &e)
 	{
 		std::cout << "Error: " << e.what() << std::endl;
 	}
 	return (0);
-}*/
+}
 
-#include <iostream>
-#include "Array.hpp"
-
-#define MAX_VAL 750
-int main(int, char**)
+bool isPrime(int num)
 {
-    Array<int> numbers(MAX_VAL);
-    int* mirror = new int[MAX_VAL];
-    srand(time(NULL));
-    for (int i = 0; i < MAX_VAL; i++)
-    {
-        const int value = rand();
-        numbers[i] = value;
-        mirror[i] = value;
-    }
-    //SCOPE
-    {
-        Array<int> tmp = numbers;
-        Array<int> test(tmp);
-    }
+	int i = 2;
+	if (num == 2)
+		return true;
+	while (num / i >= i)
+	{
+		if (num % i == 0)
+			return (false);
+		i++;
+	}
+	return (true);
+	
+}
 
-    for (int i = 0; i < MAX_VAL; i++)
-    {
-        if (mirror[i] != numbers[i])
-        {
-            std::cout << "didn't save the same value!!" << std::endl;
-            return 1;
-        }
-    }
-    try
-    {
-        numbers[-2] = 0;
-    }
-    catch(const std::exception& e)
-    {
-        std::cerr << e.what() << '\n';
-    }
-    try
-    {
-        numbers[MAX_VAL] = 0;
-    }
-    catch(const std::exception& e)
-    {
-        std::cerr << e.what() << '\n';
-    }
+int getNextPrime()
+{
+	static int num = 1;
+	num++;
+	while (!isPrime(num))
+	{
+		num++;
+	}
+	return (num);
+}
 
-    for (int i = 0; i < MAX_VAL; i++)
-    {
-        numbers[i] = rand();
-    }
-    delete [] mirror;//
-    return 0;
+void setNextPrime(int &num)
+{
+	num = getNextPrime();
 }
