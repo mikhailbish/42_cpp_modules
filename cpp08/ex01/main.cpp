@@ -1,26 +1,14 @@
 #include <vector>
 #include <iostream>
-#include "easyfind.h"
+#include "Span.hpp"
 
 int main()
 {
-	std::vector<int> myvec;
-	myvec.push_back(5);
-	myvec.push_back(8);
-	myvec.push_back(2);
-	myvec.push_back(4);
-	myvec.push_back(0);
-	myvec.push_back(5);
-	auto meow = easyfind(myvec, 4);
-	if (meow != myvec.end())
-		std::cout << (*meow) << std::endl;
-	else
-		std::cout << "not found" << std::endl;
-	const std::vector<int> some = {123, 12312321 ,123123 ,12,22};
-	auto wow = easyfind(some, 4);
-	if (wow != some.end())
-		std::cout << (*wow) << std::endl;
-	else
-		std::cout << "not found" << std::endl;
+	Span  sp(10);
+	sp.addNumber(5);
+	sp.addNumber(4);
+	sp.addNumber(3);
+	sp.addNumber(2);
+	sp.addNumber(1);
 	return (0);
 }

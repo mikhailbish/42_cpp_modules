@@ -1,32 +1,27 @@
 #include "Span.hpp"
 
-Span::Span()
-{
-	_storage = new int[N];
-}
-
-Span::Span(unsigned int num) : N(num), Span()
+Span::Span(unsigned int num) : N(num)
 {}
 
-Span::Span(const Span &other) : Span(other.N), _filled(other._filled)
+Span::Span(const Span &other) : Span(other.N)
 {
-	for (unsigned int i = 0; i < _filled; ++i)
-	{
-		_storage[i] = other._storage[i];
-	}
+	_storage = other._storage;
 }
 
-Span &Span::operator=(const Span &other)
+Span &Span::operator=(Span &other)
 {
-	delete[] _storage;
-	_storage = new int[other.N];
-	for (unsigned int i = 0; i < _filled; ++i)
-	{
-		_storage[i] = other._storage[i];
-	}
+	if (&other == this)
+		return (*this);
+	N = other.N;
+	_storage = other._storage;
+	return (*this);
 }
 
-Span::~Span()
+void Span::addNumber(int number)
 {
-	delete[] _storage;
+	if (_storage.size() < N)
+		_storage.push_back(number);
 }
+
+
+
