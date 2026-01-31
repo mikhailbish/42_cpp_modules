@@ -21,7 +21,24 @@ void Span::addNumber(int number)
 {
 	if (_storage.size() < N)
 		_storage.push_back(number);
+	else
+		throw InadequateAmountOfNumbersException();
 }
 
+const char *Span::InadequateAmountOfNumbersException::what() const noexcept
+{
+	return "Wrong number amount for the operation";
+}
 
-
+unsigned int shortestSpan() const
+{
+	if (_storage.size() < 2)
+		throw InadequateAmountOfNumbersException();
+//	return
+}
+unsigned int longestSpan() const
+{
+	if (_storage.size() < 2)
+		throw InadequateAmountOfNumbersException();
+//	return
+}

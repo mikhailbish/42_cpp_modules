@@ -16,7 +16,7 @@ class Span {
 		Span &operator=(Span &other);
 		void addNumber(int);
 		template<typename T>
-		void addNumber(T::iterator begin, T::iterator end)
+		void addNumber(typename T::iterator begin, typename T::iterator end)
 		{
 			unsigned int sizeToAdd = end - begin;
 // TODO: off by one?
@@ -24,8 +24,13 @@ class Span {
 				return ;
 			_storage.insert(_storage.end(), begin, end);
 		}
-		unsigned int shortestSpan();
-		unsigned int longestSpan();
+		class InadequateAmountOfNumbersException : public std::exception
+		{
+			public:
+				virtual const char *what() const noexcept override;
+		}
+		unsigned int shortestSpan() const;
+		unsigned int longestSpan() const;
 };
 
 #endif
