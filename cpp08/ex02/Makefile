@@ -1,8 +1,8 @@
 NAME = templates
 CC = c++
 RM = rm -f
-CFLAGS = -Wall -Wextra -Werror -std=c++11 -pedantic
-SRCS = main.cpp
+CFLAGS = -Wall -Wextra -Werror -std=c++11
+SRCS = main.cpp MutantStack.cpp
 
 OBJS = $(SRCS:.cpp=.o)
 
