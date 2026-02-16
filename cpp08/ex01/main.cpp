@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Span.hpp"
 #include <vector>
+#include <limits>
 
 int main()
 {
@@ -50,6 +51,20 @@ int main()
 		nums.push_back(290);
 		nums.push_back(30);
 		sp.addNumber(nums.begin(), nums.end());
+		std::cout << sp.shortestSpan() << std::endl;
+		std::cout << sp.longestSpan() << std::endl;
+	
+	}
+	catch (std::exception &err)
+	{
+		std::cout << err.what() << std::endl;
+	}
+	try
+	{
+		std::cout << "--------------------------------------------------------------" << std::endl;
+		Span  sp(2);
+		sp.addNumber(std::numeric_limits<int>::max());
+		sp.addNumber(std::numeric_limits<int>::min());
 		std::cout << sp.shortestSpan() << std::endl;
 		std::cout << sp.longestSpan() << std::endl;
 	
