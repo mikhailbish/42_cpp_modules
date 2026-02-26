@@ -10,6 +10,22 @@ void BitcoinExchange::insertLine(std::string line)
 	this->insert({date, stof(value)});
 }
 
+int getValidatedNumber(std::string numStr)
+{
+	size_t endIndex;
+	int number = stoi(numStr, &endIndex);
+	if (numStr[endIndex] != 0)
+		return -1;
+	return number;
+}
+
+bool isEndOfIsStream(std::istringstream &someStream)
+{
+	if (someStream.peek() == std::char_traits<char>::eof())
+		return true;
+	return false;
+}
+
 bool isValidDate(std::string &date)
 {
 	try {
@@ -20,15 +36,17 @@ bool isValidDate(std::string &date)
 		getline(lineStream, year, '-');
 		getline(lineStream, month, '-');
 		getline(lineStream, day, '-');
-		//TODO: add validation for the end of stream
-/*
-		if (lineStream.peek() != lineStream.eof())
-		{
-		}
-*/
-		int iyear = stoi(year);
-		int imonth = stoi(month);
-		int iday = stoi(day);
+		if (!isEndOfIsStream(lineStream))
+			return false;
+		int iyear = getValidatedNumber(year);
+		if (iyear == -1)
+			return false;
+		int imonth = getValidatedNumber(month);
+		if (imonth == -1)
+			return false;
+		int iday = getValidatedNumber(day);
+		if (iday == -1)
+			return false;
 		auto dateValidator = std::chrono::year_month_day(std::chrono::year(iyear), std::chrono::month(imonth), std::chrono::day(iday));
 		return dateValidator.ok();
 	}
@@ -43,27 +61,41 @@ void BitcoinExchange::match(std::string line)
 {
 	try
 	{
+		size_t index;
+		size_t size;
 		std::istringstream lineStream(line);
 		std::string date;
 		std::string value;
 		float fvalue;
 		getline(lineStream, date, '|');
 		std::istringstream dateSpaceRem(date);
+		size = date.size();
 		getline(dateSpaceRem, date, ' ');
+		if (size == date.size())
+			throw 1;
 		getline(lineStream, value, '|');
+		size = value.size();
 		std::istringstream valSpaceRem(value);
 		getline(valSpaceRem, value, ' ');
 		getline(valSpaceRem, value, ' ');
+		if (size == value.size())
+			throw 1;
+		if (!isEndOfIsStream(lineStream))
+			throw 1;
+		if (!isEndOfIsStream(dateSpaceRem))
+			throw 1;
+		if (!isEndOfIsStream(valSpaceRem))
+			throw 1;
 		if (!isValidDate(date))
 		{
-			std::cout << "ERRORRRR date" << std::endl;
+			std::cout << "Error: invalid date: " << date << std::endl;
 			return ;
 
 		}
-		fvalue = stof(value);
-		if (fvalue < 0 || fvalue > 1000)
+		fvalue = stof(value, &index);
+		if (fvalue < 0 || fvalue > 1000 || value[index])
 		{
-			std::cout << "ERRORRRR value" << std::endl;
+			std::cout << "Error: invalid value: " << value << std::endl;
 			return ;
 			
 		}
@@ -85,12 +117,12 @@ void BitcoinExchange::match(std::string line)
 			}
 			else
 			{
-				std::cout << "ERRORRRR" << std::endl;
+				std::cout << "Error: date before the first entry" << std::endl;
 			}
 		}
 	}
-	catch(std::exception &err)
+	catch(...)
 	{
-		std::cout << err.what() << std::endl;
+		std::cout << "Error: invalid line: " << line << std::endl;
 	}
 }
