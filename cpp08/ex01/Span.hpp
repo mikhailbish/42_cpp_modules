@@ -3,6 +3,7 @@
 
 # include <algorithm>
 # include <set>
+# include <limits>
 
 class Span {
 	unsigned int N = 0;
@@ -19,9 +20,8 @@ class Span {
 		template<typename T>
 		void addNumber(T begin, T end)
 		{
-			unsigned int sizeToAdd = std::distance(begin, end);
-// TODO: off by one?
-			if (sizeToAdd + _storage.size() > N)
+			long sizeToAdd = std::distance(begin, end);
+			if (static_cast<unsigned int>(sizeToAdd) + _storage.size() > N)
 				return ;
 			_storage.insert(begin, end);
 		}

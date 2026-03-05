@@ -18,6 +18,8 @@ int main()
 		mstack.push(0);
 		MutantStack<int>::iterator it = mstack.begin();
 		MutantStack<int>::iterator ite = mstack.end();
+		MutantStack<int>::reverse_iterator rit = mstack.rbegin();
+		MutantStack<int>::reverse_iterator rite = mstack.rend();
 		++it;
 		--it;
 		while (it != ite)
@@ -25,7 +27,29 @@ int main()
 			std::cout << *it << std::endl;
 			++it;
 		}
+		while (rit != rite)
+		{
+			std::cout << *rit << std::endl;
+			++rit;
+		}
+		const MutantStack<int> cMstack = mstack;
+		MutantStack<int>::const_iterator cpIt = cMstack.begin();
+		MutantStack<int>::const_iterator cpIte = cMstack.end();
+		MutantStack<int>::const_reverse_iterator rcpIt = cMstack.rbegin();
+		MutantStack<int>::const_reverse_iterator rcpIte = cMstack.rend();
+		while (cpIt != cpIte)
+		{
+			std::cout << *cpIt << std::endl;
+			++cpIt;
+		}
+		while (rcpIt != rcpIte)
+		{
+			std::cout << *rcpIt << std::endl;
+			++rcpIt;
+		}
+	
 		std::stack<int> s(mstack);
+		
 	}
 	catch (std::exception &err)
 	{

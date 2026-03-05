@@ -43,7 +43,7 @@ unsigned int Span::shortestSpan() const
 {
 	int prevNum;
 	bool firstIter = true;
-	unsigned int ss = -1;
+	unsigned int ss = std::numeric_limits<unsigned int>::max();
 	if (_storage.size() < 2)
 		throw InadequateAmountOfNumbersException();
 	for (const int &num : _storage)

@@ -61,10 +61,25 @@ int main()
 	}
 	try
 	{
-		std::cout << "--------------------------------------------------------------" << std::endl;
+		std::cout << "--------------------------max min-----------------------------" << std::endl;
 		Span  sp(2);
 		sp.addNumber(std::numeric_limits<int>::max());
 		sp.addNumber(std::numeric_limits<int>::min());
+		std::cout << sp.shortestSpan() << std::endl;
+		std::cout << sp.longestSpan() << std::endl;
+	
+	}
+	catch (std::exception &err)
+	{
+		std::cout << err.what() << std::endl;
+	}
+	try
+	{
+		std::cout << "--------------------------2 min-------------------------------" << std::endl;
+		Span  sp(2);
+		sp.addNumber(10);
+		sp.addNumber(std::numeric_limits<int>::min());
+		std::cout << "min: " << std::numeric_limits<int>::min() << std::endl;
 		std::cout << sp.shortestSpan() << std::endl;
 		std::cout << sp.longestSpan() << std::endl;
 	
