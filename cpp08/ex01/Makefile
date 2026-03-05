@@ -2,13 +2,12 @@ NAME = templates
 CC = c++
 RM = rm -f
 CFLAGS = -Wall -Wextra -Werror -std=c++11
-EXTRAFLAGS= -Wpedantic -Wconversion -Wsign-conversion -Wshadow -Wnull-dereference
 SRCS = main.cpp Span.cpp
 
 OBJS = $(SRCS:.cpp=.o)
 
 %.o: %.cpp
-	$(CC) $(CFLAGS) $(EXTRAFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
 all: $(NAME)
 
