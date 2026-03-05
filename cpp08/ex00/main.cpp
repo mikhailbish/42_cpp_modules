@@ -1,6 +1,6 @@
+#include "easyfind.h"
 #include <vector>
 #include <iostream>
-#include "easyfind.h"
 
 int main()
 {

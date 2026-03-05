@@ -36,7 +36,7 @@ unsigned int Span::_getDistance(int num1, int num2) const
 		return (0);
 	if (num1 < num2)
 		return _getDistance(num2, num1);
-	return static_cast<unsigned int>(num1 - num2);
+	return static_cast<unsigned int>(static_cast<long>(num1) - static_cast<long>(num2));
 }
 
 unsigned int Span::shortestSpan() const
