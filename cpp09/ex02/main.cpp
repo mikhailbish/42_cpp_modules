@@ -1,6 +1,8 @@
 #include "PmergeMe.hpp"
+#include <iostream>
+#include <string>
 
-bool validateNumericalString(std::string number)
+bool validateNumericalString(std::string &&number)
 {
 	try
 	{
@@ -17,6 +19,17 @@ bool validateNumericalString(std::string number)
 
 int main(int argc, char *argv[])
 {
-	
+	int index = 0;
+	while (index < argc)
+	{
+		if ( index && !validateNumericalString(std::string(argv[index])))
+		{
+			std::cout << "Erroneous param" << std::endl;
+			return 1;
+		}
+		if (index)
+			std::cout << argv[index] << std::endl;
+		index++;
+	}
 	return (0);
 }
