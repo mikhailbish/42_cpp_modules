@@ -1,13 +1,16 @@
 #pragma once
 
 #include <stack>
-//TODO: OCF
-class RPN {
-	std::stack<float> _holder;
-	void processNumber(float);
-	void processSign(char);
-	bool _lastIsSpace = true;
+#include <cmath>
+
+struct RPN {
+	private:
+		std::stack<double> _holder;
+		void _processNumber(double);
+		void _processSign(char);
+		void _checkOverflow(double num);
+		bool _lastIsSpace = true;
 	public:
 		void processChar(char c);
-		float getResult();
+		double getResult();
 };

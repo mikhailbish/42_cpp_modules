@@ -6,7 +6,7 @@ int main(int argc, char *argv[])
 {
 	if (argc != 2)
 	{
-		std::cout << "Error" << std::endl;
+		std::cerr << "Error" << std::endl;
 		return 1;
 	}
 	try {
@@ -17,6 +17,8 @@ int main(int argc, char *argv[])
 		}
 		std::cout << calculator.getResult() << std::endl;
 	} catch(...) {
-		std::cout << "Error" << std::endl;
+		std::cerr << "Error" << std::endl;
+		return 1;
 	}
+	return 0;
 }

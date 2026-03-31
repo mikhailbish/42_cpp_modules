@@ -7,14 +7,14 @@ void RPN::processChar(char c)
 		if (!_lastIsSpace)
 			throw 1;
 		_lastIsSpace = false;
-		processNumber(static_cast<float>(c - '0'));
+		_processNumber(static_cast<double>(c - '0'));
 	}
 	else if (c == '/' || c == '+' || c == '-' || c == '*')
 	{
 		if (!_lastIsSpace)
 			throw 1;
 		_lastIsSpace = false;
-		processSign(c);
+		_processSign(c);
 	}
 	else if (c == ' ')
 	{
@@ -24,28 +24,47 @@ void RPN::processChar(char c)
 	}
 }
 
-void RPN::processNumber(float number)
+void RPN::_processNumber(double number)
 {
 	_holder.push(number);
 }
-// TODO: overflows?
-void RPN::processSign(char sign)
+
+void RPN::_checkOverflow(double num)
+{
+	if (std::isinf(num))
+		throw 1;
+}
+
+void RPN::_processSign(char sign)
 {
 	if (_holder.size() < 2)
 		throw 1;
-	float temp = _holder.top();
+	double temp = _holder.top();
 	_holder.pop();
-	if (sign == '*')
-		_holder.top() *= temp;
-	else if (sign == '/')
-		_holder.top() /= temp;
-	else if (sign == '+')
+	if (sign == '+')
+	{
 		_holder.top() += temp;
+		_checkOverflow(_holder.top());
+	}
 	else if (sign == '-')
+	{
 		_holder.top() -= temp;
+		_checkOverflow(_holder.top());
+	}
+	else if (sign == '*')
+	{
+		_holder.top() *= temp;
+		_checkOverflow(_holder.top());
+	}
+	else if (sign == '/')
+	{
+		if (temp == 0)
+			throw 1;
+		_holder.top() /= temp;
+	}
 }
 
-float RPN::getResult()
+double RPN::getResult()
 {
 	if (_holder.size() != 1)
 		throw 1;
