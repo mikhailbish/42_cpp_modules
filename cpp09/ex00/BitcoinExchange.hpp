@@ -6,7 +6,7 @@
 #include <sstream>
 #include <chrono>
 
-class BitcoinExchange : public std::map<std::string, float>
+struct BitcoinExchange : public std::map<std::string, float>
 {
 // TODO: OCF
 /*
