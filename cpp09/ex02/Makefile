@@ -14,6 +14,9 @@ all: $(NAME)
 $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
 
+test: all
+	valgrind ./PmergeMe `shuf -i 1-100000 -n 30 | tr "\n" " "`
+
 clean:
 	$(RM) $(OBJS)
 
@@ -22,4 +25,4 @@ fclean: clean
 
 re:	fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean test fclean re
