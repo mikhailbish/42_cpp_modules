@@ -1,14 +1,20 @@
 #include "PmergeMe.hpp"
-#include <iostream>
-#include <string>
+/*
+	steps:
+		- collect validated numbers into container
+		- break numbers into the pairs
+		- identify the leaders of the pairs
+		- sort the leaders and start to plan jacobsthal insertion of the smaller numbers
+*/
+
 
 bool validateNumericalString(std::string &&number)
 {
 	try
 	{
 		size_t index;
-		int num = stoi(number, &index);
-		if (num < 1 || number[index])
+		stoi(number, &index);
+		if (number[index])
 			return false;
 	} catch (...)
 	{
@@ -20,16 +26,16 @@ bool validateNumericalString(std::string &&number)
 int main(int argc, char *argv[])
 {
 	int index = 0;
+	
 	while (index < argc)
 	{
-		if ( index && !validateNumericalString(std::string(argv[index])))
+		if (index && !validateNumericalString(std::string(argv[index])))
 		{
-			std::cout << "Erroneous param" << std::endl;
+			std::cerr << "Erroneous param" << std::endl;
 			return 1;
 		}
-		if (index)
-			std::cout << argv[index] << std::endl;
 		index++;
 	}
+	pmergeInsert(argc, argv);
 	return (0);
 }
