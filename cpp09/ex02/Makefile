@@ -17,13 +17,18 @@ $(NAME): $(OBJS)
 #test: all
 #	valgrind ./PmergeMe `shuf -i 1-30 -n 30 | tr "\n" " "` `shuf -i 1-30 -n 30 | tr "\n" " "` 
 #	valgrind ./PmergeMe `shuf -i 1-31 -n 31 | tr "\n" " "` `shuf -i 1-31 -n 31 | tr "\n" " "` 
-#test: all
-#	./PmergeMe `shuf -i 1-30000000 -n 10000 | tr "\n" " "`
-#	./PmergeMe `shuf -i 1-30000000 -n 10000 | tr "\n" " "`
 
 test: all
-	./PmergeMe `shuf -i 1-30 -n 10 | tr "\n" " "`
-	./PmergeMe `shuf -i 1-30 -n 11 | tr "\n" " "`
+	./PmergeMe `shuf -i 1-30000000 -n 100000 | tr "\n" " "`
+	./PmergeMe `shuf -i 1-30000000 -n 100000 | tr "\n" " "`
+
+#test: all
+#	./PmergeMe `shuf -i 1-30 -n 10 | tr "\n" " "`
+#	./PmergeMe `shuf -i 1-30 -n 11 | tr "\n" " "`
+
+#test: all
+#	valgrind ./PmergeMe `shuf -i 1-30 -n 5 | tr "\n" " "`
+#	valgrind ./PmergeMe `shuf -i 1-30 -n 6 | tr "\n" " "`
 
 clean:
 	$(RM) $(OBJS)

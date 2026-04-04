@@ -64,38 +64,27 @@ void pMergeInsertion(Container &numbers)
 	size_t smallsSize  = smalls.size();
 	size_t iSmalls = 0;
 	int previousJacobsthalValue = 0;
-	
+	size_t jacobsthalSequenceIndex = 0;
 	if (smallsSize)
 	{
 		bigs.insert(bigs.begin(), smalls[iSmalls]);
 		previousJacobsthalValue = 1;
+		jacobsthalSequenceIndex = 1;
 		++iSmalls;
 	}
 	std::vector<int> &jacobsthalSequence = getJacobsthalSequence();
 	while (iSmalls < smallsSize)
 	{
-		int jacobsthalValue = std::min(static_cast<size_t>(jacobsthalSequence.at(iSmalls)), smallsSize);
+		int jacobsthalValue = std::min(static_cast<size_t>(jacobsthalSequence.at(jacobsthalSequenceIndex)), smallsSize);
 		for (int currentlyAdding = jacobsthalValue; currentlyAdding > previousJacobsthalValue; --currentlyAdding)
 		{
 			int num = smalls.at(currentlyAdding - 1);
-			auto insertTo = std::lower_bound(bigs.begin(), bigs.begin() + currentlyAdding + iSmalls + 1, num);
+			auto insertTo = std::lower_bound(bigs.begin(), bigs.begin() + currentlyAdding + iSmalls - 1, num);
 			bigs.insert(insertTo, num);
 			++iSmalls;
 		}
+		jacobsthalSequenceIndex ++;
 		previousJacobsthalValue = jacobsthalValue;
 	}
-/*
-	for (int num : smalls)
-	{
-		auto res = std::lower_bound(bigs.begin(), bigs.end(), num);
-		
-// TODO: add std::is_sorted for verification
-// TODO: is this relevant?
-		if (res == bigs.end())
-			bigs.push_back(num);
-		else if (num)
-			bigs.insert(res, num);		
-	}
-*/
 	numbers = bigs;
 }

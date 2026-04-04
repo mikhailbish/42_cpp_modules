@@ -40,7 +40,7 @@ int main(int argc, char *argv[])
 	}
 	try
 	{
-		generateJacobsthalSequence(argc / 2);
+		generateJacobsthalSequence(argc / 2 + 1);
 		auto vStart = std::chrono::steady_clock::now();
 		std::vector<int> numsV;
 		fillContainer(argc, argv, numsV);
@@ -59,6 +59,11 @@ int main(int argc, char *argv[])
 		printContainerizedNumbers(argv + 1, argc - 1);
 		std::cout << "After:  ";
 		printContainerizedNumbers(numsV, numsV.size());
+	//	printContainerizedNumbers(numsD, numsD.size());
+		if (!std::is_sorted(numsV.begin(), numsV.end()))
+			throw 1;
+		if (!std::is_sorted(numsD.begin(), numsD.end()))
+			throw 1;
 		std::cout << "Time to process a range of " << numsV.size() << " elements with std::vector: " << vDuration << std::endl;
 		std::cout << "Time to process a range of " << numsV.size() << " elements with std::deque:  " << dDuration << std::endl;
 	}
@@ -66,5 +71,6 @@ int main(int argc, char *argv[])
 	{
 		std::cerr << "Error when sorting" << std::endl;
 	}
+
 	return (0);
 }
