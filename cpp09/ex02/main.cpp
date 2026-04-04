@@ -16,7 +16,7 @@ bool validateNumericalString(std::string &&number)
 		long num = stoi(number, &index);
 		if (number[index])
 			return false;
-		if (num < 0)
+		if (num < 1)
 			return false;
 	} catch (...)
 	{
