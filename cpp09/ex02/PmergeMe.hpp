@@ -6,6 +6,9 @@
 #include <iostream>
 #include <string>
 #include <utility>
+#include <chrono>
+
+#define UNSET 0
 
 template <typename Container>
 void printContainerizedNumbers(Container &&numbers, size_t length)
@@ -35,8 +38,6 @@ void pMergeInsertion(Container &numbers)
 	size_t		size = numbers.size();
 	if (size < 2)
 		return; 
-	bool		hasStruggler = size % 2 ? true : false;
-	int		struggler = numbers.back();
 	for (size_t i = 0; i < size - 1; i += 2)
 	{
 		if (numbers.at(i) > numbers.at(i + 1))
@@ -46,17 +47,17 @@ void pMergeInsertion(Container &numbers)
 		bigs.push_back(pairs.back().first);
 	}
 	pMergeInsertion(bigs);
-	smalls.resize(bigs.size());
+	smalls.resize(size / 2, UNSET);
+	if (size % 2)
+		smalls.push_back(numbers.at(size - 1));
 	for (std::pair<int, int> &pair : pairs)
 	{
 		auto iterInBigs = std::lower_bound(bigs.begin(), bigs.end(), pair.first);
 		auto indexInSmalls = std::distance(bigs.begin(), iterInBigs);
-		while (smalls.at(indexInSmalls))
+		while (smalls.at(indexInSmalls) != UNSET)
 			indexInSmalls++;
 		smalls.at(indexInSmalls) = pair.second;
 	}
-	if (hasStruggler)
-		smalls.push_back(struggler);
 	for (int num : smalls)
 	{
 		auto res = std::lower_bound(bigs.begin(), bigs.end(), num);

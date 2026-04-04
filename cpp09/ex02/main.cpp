@@ -41,24 +41,26 @@ int main(int argc, char *argv[])
 	try
 	{
 		//prep jacobstal
-		// start time count
+		auto vStart = std::chrono::steady_clock::now();
 		std::vector<int> numsV;
 		fillContainer(argc, argv, numsV);
 		pMergeInsertion(numsV);
-		// end time count
-		std::cout << "----------------------------------------" << std::endl;
-		// start time count
+		auto vEnd = std::chrono::steady_clock::now();
+		auto vDuration = std::chrono::duration_cast<std::chrono::nanoseconds>(vEnd - vStart);
+
+		auto dStart = std::chrono::steady_clock::now();
 		std::deque<int> numsD;
 		fillContainer(argc, argv, numsD);
 		pMergeInsertion(numsD);
-		// end time count
+		auto dEnd = std::chrono::steady_clock::now();
+		auto dDuration = std::chrono::duration_cast<std::chrono::nanoseconds>(dEnd - dStart);
+
 		std::cout << "Before: ";
 		printContainerizedNumbers(argv + 1, argc - 1);
 		std::cout << "After:  ";
 		printContainerizedNumbers(numsV, numsV.size());
-//TODO: update numbers
-		std::cout << "Time to process a range of " << numsV.size() << " elements with std::vector: " << 62.14389 <<" us" << std::endl;
-		std::cout << "Time to process a range of " << numsV.size() << " elements with std::deque:  " << 62.14389 <<" us" << std::endl;
+		std::cout << "Time to process a range of " << numsV.size() << " elements with std::vector: " << vDuration << std::endl;
+		std::cout << "Time to process a range of " << numsV.size() << " elements with std::deque:  " << dDuration << std::endl;
 	}
 	catch (...)
 	{
