@@ -40,7 +40,7 @@ int main(int argc, char *argv[])
 	}
 	try
 	{
-		//prep jacobstal
+		generateJacobsthalSequence(argc / 2);
 		auto vStart = std::chrono::steady_clock::now();
 		std::vector<int> numsV;
 		fillContainer(argc, argv, numsV);

@@ -9,6 +9,8 @@
 #include <chrono>
 
 #define UNSET 0
+std::vector<int> &getJacobsthalSequence();
+void generateJacobsthalSequence(int max);
 
 template <typename Container>
 void printContainerizedNumbers(Container &&numbers, size_t length)
