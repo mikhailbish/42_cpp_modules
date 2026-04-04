@@ -60,9 +60,12 @@ void pMergeInsertion(Container &numbers)
 			indexInSmalls++;
 		smalls.at(indexInSmalls) = pair.second;
 	}
+	
 	for (int num : smalls)
 	{
 		auto res = std::lower_bound(bigs.begin(), bigs.end(), num);
+// TODO: add std::is_sorted for verification
+// TODO: is this relevant?
 		if (res == bigs.end())
 			bigs.push_back(num);
 		else if (num)
