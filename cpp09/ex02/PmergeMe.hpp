@@ -7,6 +7,7 @@
 #include <string>
 #include <utility>
 #include <chrono>
+#include <algorithm>
 
 #define UNSET 0
 std::vector<int> &getJacobsthalSequence();
@@ -60,10 +61,34 @@ void pMergeInsertion(Container &numbers)
 			indexInSmalls++;
 		smalls.at(indexInSmalls) = pair.second;
 	}
+	size_t smallsSize  = smalls.size();
+	size_t iSmalls = 0;
+	int previousJacobsthalValue = 0;
 	
+	if (smallsSize)
+	{
+		bigs.insert(bigs.begin(), smalls[iSmalls]);
+		previousJacobsthalValue = 1;
+		++iSmalls;
+	}
+	std::vector<int> &jacobsthalSequence = getJacobsthalSequence();
+	while (iSmalls < smallsSize)
+	{
+		int jacobsthalValue = std::min(static_cast<size_t>(jacobsthalSequence.at(iSmalls)), smallsSize);
+		for (int currentlyAdding = jacobsthalValue; currentlyAdding > previousJacobsthalValue; --currentlyAdding)
+		{
+			int num = smalls.at(currentlyAdding - 1);
+			auto insertTo = std::lower_bound(bigs.begin(), bigs.begin() + currentlyAdding + iSmalls + 1, num);
+			bigs.insert(insertTo, num);
+			++iSmalls;
+		}
+		previousJacobsthalValue = jacobsthalValue;
+	}
+/*
 	for (int num : smalls)
 	{
 		auto res = std::lower_bound(bigs.begin(), bigs.end(), num);
+		
 // TODO: add std::is_sorted for verification
 // TODO: is this relevant?
 		if (res == bigs.end())
@@ -71,5 +96,6 @@ void pMergeInsertion(Container &numbers)
 		else if (num)
 			bigs.insert(res, num);		
 	}
+*/
 	numbers = bigs;
 }
