@@ -62,6 +62,59 @@ void BitcoinExchange::match(std::string line)
 	try
 	{
 		size_t index;
+		float fvalue;
+		std::istringstream lineStream(line);
+		std::string date;
+		std::string value;
+		std::string token;
+		lineStream >> date;
+		if (!date.size())
+			throw 1;
+		if (!isValidDate(date))
+		{
+			std::cout << "Error: invalid date: " << date << std::endl;
+			return ;
+		}
+		lineStream >> token;
+		if (token != "|")
+		{
+			std::cout << "Error: invalid separator: " << date << std::endl;
+			return ;
+		}
+		lineStream >> value;
+		if (!isEndOfIsStream(lineStream))
+			throw 1;
+		fvalue = stof(value, &index);
+		if (fvalue < 0 || fvalue > 1000 || value[index])
+		{
+			std::cout << "Error: invalid value: " << value << std::endl;
+			return ;
+		}
+		auto it = this->upper_bound(date);
+		if (it == this->begin())
+		{
+			std::cout << "Error: input date " + date + " is before the first data entry" << std::endl;
+			return;
+		}
+		if (!this->size())
+		{
+			std::cout << "Not data has been provided" << std::endl;
+			return;
+		}
+		--it;
+		std::cout << date << " => " << value << " = " << it->second * fvalue << std::endl;
+	}
+	catch (...)
+	{
+		std::cout << "Error: invalid line: " << line << std::endl;
+	}
+}
+/*
+void BitcoinExchange::match(std::string line)
+{
+	try
+	{
+		size_t index;
 		size_t size;
 		std::istringstream lineStream(line);
 		std::string date;
@@ -126,3 +179,4 @@ void BitcoinExchange::match(std::string line)
 		std::cout << "Error: invalid line: " << line << std::endl;
 	}
 }
+*/
