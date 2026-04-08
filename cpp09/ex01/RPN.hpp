@@ -2,6 +2,7 @@
 
 #include <stack>
 #include <cmath>
+#include <iostream>
 
 struct RPN {
 	private:

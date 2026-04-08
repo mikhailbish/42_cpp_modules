@@ -22,6 +22,8 @@ void RPN::processChar(char c)
 			throw 1;
 		_lastIsSpace = true;
 	}
+	else
+		throw 1;
 }
 
 void RPN::_processNumber(double number)
