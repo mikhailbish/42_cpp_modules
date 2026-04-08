@@ -1,6 +1,4 @@
 #include "BitcoinExchange.hpp"
-#include <iostream>
-#include <fstream>
 
 void fileError()
 {
@@ -9,15 +7,15 @@ void fileError()
 
 int main(int argc, char *argv[])
 {
-	if (argc < 2)
+	if (argc != 2)
 	{
-		fileError();
+		std::cout << "Usage: ./btc inputdata" << std::endl;
 		return 1;
 	}
 	try {
 		BitcoinExchange bce;
 		std::string line;
-		std::ifstream dbFile("data.csv");
+		std::ifstream dbFile(DATA_FILE_NAME);
 		std::ifstream inputFile(argv[1]);
 		bool start = true;
 		if (dbFile.fail() || inputFile.fail())
@@ -41,6 +39,11 @@ int main(int argc, char *argv[])
 		{
 			if (start)
 			{
+				if (!BitcoinExchange::validateHeader(line))
+				{
+					std::cout << "Invalid header in the input file" << std::endl;
+					return (1);
+				}
 				start = false;
 				continue;
 			}

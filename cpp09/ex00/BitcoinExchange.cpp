@@ -1,6 +1,6 @@
 #include "BitcoinExchange.hpp"
 
-void BitcoinExchange::insertLine(std::string line)
+void BitcoinExchange::insertLine(std::string &line)
 {
 	std::istringstream lineStream(line);
 	std::string date;
@@ -10,7 +10,7 @@ void BitcoinExchange::insertLine(std::string line)
 	this->insert({date, stof(value)});
 }
 
-int getValidatedNumber(std::string numStr)
+int getValidatedNumber(std::string &numStr)
 {
 	size_t endIndex;
 	int number = stoi(numStr, &endIndex);
@@ -21,9 +21,7 @@ int getValidatedNumber(std::string numStr)
 
 bool isEndOfIsStream(std::istringstream &someStream)
 {
-	if (someStream.peek() == std::char_traits<char>::eof())
-		return true;
-	return false;
+	return (someStream.peek() == std::char_traits<char>::eof());
 }
 
 bool isValidDate(std::string &date)
@@ -57,7 +55,23 @@ bool isValidDate(std::string &date)
 	return true;
 }
 
-void BitcoinExchange::match(std::string line)
+bool BitcoinExchange::validateHeader(std::string &line)
+{
+		std::string token;
+		std::istringstream lineStream(line);
+		lineStream >> token;
+		if (token != "date")
+			return (false);
+		lineStream >> token;
+		if (token != "|")
+			return (false);
+		lineStream >> token;
+		if (token != "value")
+			return (false);
+		return (lineStream.peek() == std::char_traits<char>::eof());
+}
+
+void BitcoinExchange::match(std::string &line)
 {
 	try
 	{
@@ -98,7 +112,7 @@ void BitcoinExchange::match(std::string line)
 		}
 		if (!this->size())
 		{
-			std::cout << "Not data has been provided" << std::endl;
+			std::cout << "No data has been provided" << std::endl;
 			return;
 		}
 		--it;
@@ -109,74 +123,3 @@ void BitcoinExchange::match(std::string line)
 		std::cout << "Error: invalid line: " << line << std::endl;
 	}
 }
-/*
-void BitcoinExchange::match(std::string line)
-{
-	try
-	{
-		size_t index;
-		size_t size;
-		std::istringstream lineStream(line);
-		std::string date;
-		std::string value;
-		float fvalue;
-		getline(lineStream, date, '|');
-		std::istringstream dateSpaceRem(date);
-		size = date.size();
-		getline(dateSpaceRem, date, ' ');
-		if (size == date.size())
-			throw 1;
-		getline(lineStream, value, '|');
-		size = value.size();
-		std::istringstream valSpaceRem(value);
-		getline(valSpaceRem, value, ' ');
-		getline(valSpaceRem, value, ' ');
-		if (size == value.size())
-			throw 1;
-		if (!isEndOfIsStream(lineStream))
-			throw 1;
-		if (!isEndOfIsStream(dateSpaceRem))
-			throw 1;
-		if (!isEndOfIsStream(valSpaceRem))
-			throw 1;
-		if (!isValidDate(date))
-		{
-			std::cout << "Error: invalid date: " << date << std::endl;
-			return ;
-
-		}
-		fvalue = stof(value, &index);
-		if (fvalue < 0 || fvalue > 1000 || value[index])
-		{
-			std::cout << "Error: invalid value: " << value << std::endl;
-			return ;
-			
-		}
-		float result;
-		auto it = this->find(date);
-		if (it != this->end())
-		{
-				result = it->second * fvalue;
-				std::cout << date << " => " << value << " = " << result << std::endl;
-		}
-		else
-		{
-			it = this->lower_bound(date);
-			if ((it != this->end() && it != this->begin()) || (it == this->end() && this->size()))
-			{
-				--it;
-				result = it->second * fvalue;
-				std::cout << date << " => " << value << " = " << result << std::endl;
-			}
-			else
-			{
-				std::cout << "Error: date before the first entry" << std::endl;
-			}
-		}
-	}
-	catch(...)
-	{
-		std::cout << "Error: invalid line: " << line << std::endl;
-	}
-}
-*/
