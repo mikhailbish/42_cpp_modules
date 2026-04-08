@@ -1,12 +1,4 @@
 #include "PmergeMe.hpp"
-/*
-	steps:
-		- collect validated numbers into container
-		- break numbers into the pairs
-		- identify the leaders of the pairs
-		- sort the leaders and start to plan jacobsthal insertion of the smaller numbers
-*/
-
 
 bool validateNumericalString(std::string &&number)
 {
@@ -59,7 +51,6 @@ int main(int argc, char *argv[])
 		printContainerizedNumbers(argv + 1, argc - 1);
 		std::cout << "After:  ";
 		printContainerizedNumbers(numsV, numsV.size());
-	//	printContainerizedNumbers(numsD, numsD.size());
 		if (!std::is_sorted(numsV.begin(), numsV.end()))
 			throw 1;
 		if (!std::is_sorted(numsD.begin(), numsD.end()))
